@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+
+<div class="col-xl-8">
+
+    <!-- Post-->
+    <article class="post" th:each="post,key : ${posts.getContent()}">
+
+        <div class="post-header">
+            <h2 class="post-title"><a href="index.html#" th:text="${post.title}">Beautiful Day With Friends In Paris</a></h2>
+            <ul class="post-meta">
+                <li><i class="mdi mdi-calendar"></i> July 03, 2017</li>
+                <li><i class="mdi mdi-tag-text-outline"></i> <a href="index.html#">Branding</a>, <a href="index.html#">Design</a></li>
+                <li><i class="mdi mdi-comment-multiple-outline"></i> <a href="index.html#">3 Comments</a></li>
+            </ul>
+        </div>
+
+        <div class="post-preview">
+            <a href="index.html#"><img src="images/blog/blog-1.jpg" alt="" class="img-fluid rounded"></a>
+        </div>
+
+        <div class="post-content" th:text="${post.description}">
+            <p>Whether an identity or campaign, we make your brand visible, relevant and effective by placing the digital at the center of its ecosystem, without underestimating the power of traditional media. Whether an identity or campaign, we make your brand visible.</p>
+        </div>
+
+        <div><a href="index.html#" class="btn btn-outline-custom" th:href="@{'/post/'+${post.url}}">Devamını Oku.. <i class="mdi mdi-arrow-right"></i></a></div>
+
+    </article>
+    <!-- Post end-->
+
+    <!-- Pagination-->
+    <div class="row">
+        <div class="col-lg-12">
+            <ul class="pagination">
+                <li class="next"><a href="index.html#"><i class="mdi mdi-chevron-left"></i></a></li>
+                <li class="active"><a href="index.html#">1</a></li>
+                <li><a href="index.html#">2</a></li>
+                <li><a href="index.html#">3</a></li>
+                <li><a href="index.html#">4</a></li>
+                <li><a href="index.html#">5</a></li>
+                <li class="prev"><a href="index.html#"><i class="mdi mdi-chevron-right"></i></a></li>
+            </ul>
+        </div>
+    </div>
+    <!-- Pagination end-->
+</div>
+</body>
+</html>
