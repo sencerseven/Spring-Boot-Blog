@@ -27,6 +27,7 @@
     <!-- CUSTOM STYLESHEET -->
     <link href="css/style.css" rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
     <link href="css/default.css" rel="stylesheet" type="text/css" th:href="@{/css/default.css}"/>
+    <link href="css/default.css" rel="stylesheet" type="text/css" th:href="@{/css/sweetalert/sweetalert.css}"/>
 
 </head>
 
@@ -73,8 +74,11 @@
 <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 <script src="js/jquery.easing.min.js" th:src="@{/js/jquery.easing.min.js}"></script>
 <script src="js/metisMenu.min.js" th:src="@{/js/metisMenu.min.js}"></script>
+<script src="js/metisMenu.min.js" th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@7.25.4/dist/sweetalert2.all.min.js}"></script>
 <!--common script for all pages-->
 <script src="js/jquery.app.js" th:src="@{/js/jquery.app.js}"></script>
+
+<script src=""  th:src="@{${js}}"></script>
 </body>
 
 </html>

@@ -18,9 +18,9 @@
         <div class="post-header">
             <h2 class="post-title"><a href="index.html#" th:text="${post.title}">Beautiful Day With Friends In Paris</a></h2>
             <ul class="post-meta">
-                <li><i class="mdi mdi-calendar"></i> July 03, 2017</li>
+                <li><i class="mdi mdi-calendar"></i><span th:text="${#dates.format(post.createdAt, 'dd.MMM.yyyy')}"> July 03, 2017</span></li>
                 <li><i class="mdi mdi-tag-text-outline"></i> <a href="index.html#">Branding</a>, <a href="index.html#">Design</a></li>
-                <li><i class="mdi mdi-comment-multiple-outline"></i> <a href="index.html#">3 Comments</a></li>
+                <li><i class="mdi mdi-comment-multiple-outline"></i> <a href="index.html#">3 Yorum</a></li>
             </ul>
         </div>
 

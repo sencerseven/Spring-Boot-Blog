@@ -1,14 +1,26 @@
 package com.sencerseven.blog.service;
 
 
-
 import com.sencerseven.blog.domain.Post;
+import javafx.geometry.Pos;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+
+import java.util.List;
+import java.util.Optional;
 
 public interface PostService {
 
-    public Page<Post> findPostsBy(Pageable pageable);
+    Post findByID(Long id);
+
+    List<Post> findAll(Pageable pageable);
+
+    Page<Post> findPostsBy(Pageable pageable);
 
     Post getPostByUrl(String url);
+
+    Post updateBy(Post post);
+
+    List<Post> getPopulerPost(int page, int size, String column, Sort.Direction direction);
 }

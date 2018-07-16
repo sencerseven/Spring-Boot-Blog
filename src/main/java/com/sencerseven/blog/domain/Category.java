@@ -22,6 +22,9 @@ public class Category {
 
     private String url;
 
+    @Column(columnDefinition = "int default 0")
+    private int active;
+
     @ManyToOne
     @JoinColumn(name = "PARENT_CATEGORY_ID")
     private Category parentCategory;

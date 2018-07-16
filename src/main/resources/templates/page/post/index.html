@@ -17,15 +17,14 @@
             <h2 class="post-title"><a href="standard-post.html#" th:text="${post.title}">Runaway A Road Adventure</a></h2>
             <ul class="post-meta">
                 <li><i class="mdi mdi-calendar"></i><span th:text="${#dates.format(post.createdAt, 'dd.MMM.yyyy')}">July 03, 2017</span></li>
-                <li><i class="mdi mdi-tag-text-outline"></i> <a href="standard-post.html#">Branding</a>, <a
-                        href="standard-post.html#">Design</a></li>
+                <li><i class="mdi mdi-tag-text-outline"></i> <a href="standard-post.html#" th:text="${post.category.name}">Branding</a></li>
                 <li><i class="mdi mdi-comment-multiple-outline"></i> <a href="standard-post.html#">3 Comments</a></li>
             </ul>
         </div>
 
         <div class="post-preview">
             <a href="http://zoyothemes.com/blogezy/blog-single.html"><img src="images/blog/blog-1.jpg" alt=""
-                                                                          class="img-fluid rounded"></a>
+                                                                          class="img-fluid rounded" th:src="${post.imageUrl}"></a>
         </div>
 
         <div class="blog-detail-description">
@@ -61,7 +60,7 @@
             <div class="media post-author-box">
                 <img class="d-flex mr-3 rounded-circle" src="images/user/user-5.png" alt="Generic placeholder image">
                 <div class="media-body">
-                    <h4 class="media-heading"><a href="">Michelle Durant</a></h4>
+                    <h4 class="media-heading"><a href="" th:text="${post.users.userName}">Michelle Durant</a></h4>
                     <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio,
                         gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec
                         metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
@@ -128,80 +127,23 @@
             </div>
 
             <div class="mt-5">
-                <h5 class="page-title-alt"><span>Comments</span></h5>
+                <h5 class="page-title-alt"><span>Yorumlar <span id="yorumlarCount" th:text="${commentList.size()}"></span> </span></h5>
             </div>
 
-            <ul class="media-list list-unstyled">
+            <ul class="media-list list-unstyled" id="commentLine">
 
-                <li class="media">
+                <li class="media" th:each="comment,key : ${commentList}">
                     <img class="d-flex mr-3 rounded-circle" src="images/user/user-5.png"
                          alt="Generic placeholder image">
                     <div class="media-body">
-                        <a href="standard-post.html#" class="text-custom reply-btn"><i class="mdi mdi-reply"></i>&nbsp;
-                            Reply</a>
-                        <h4 class="media-heading"><a href="">Michelle Durant</a></h4>
+                        <h4 class="media-heading"><a href="" th:text="${comment.commentUser.name}">Michelle Durant</a></h4>
                         <p class="text-muted post-date">Jun 23, 2017, 11:45 am</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida
+                        <p th:text="${comment.text}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida
                             pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec
                             metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
                     </div>
                 </li>
 
-                <li class="media">
-                    <img class="d-flex mr-3 rounded-circle" src="images/user/user-2.png"
-                         alt="Generic placeholder image">
-                    <div class="media-body">
-                        <a href="standard-post.html#" class="text-custom reply-btn"><i class="mdi mdi-reply"></i>&nbsp;
-                            Reply</a>
-                        <h4 class="media-heading"><a href="">Ronda Otoole</a></h4>
-                        <p class="text-muted post-date">Jun 23, 2017, 11:45 am</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida
-                            pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec
-                            metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
-
-                        <div class="media">
-                            <img class="d-flex mr-3 rounded-circle" src="images/user/user-3.png"
-                                 alt="Generic placeholder image">
-                            <div class="media-body">
-                                <a href="standard-post.html#" class="text-custom reply-btn"><i
-                                        class="mdi mdi-reply"></i>&nbsp; Reply</a>
-                                <h4 class="media-heading"><a href="">James Whitley</a></h4>
-                                <p class="text-muted post-date">Jun 23, 2017, 11:45 am</p>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio,
-                                    gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et,
-                                    interdum nec metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-
-                <li class="media">
-                    <img class="d-flex mr-3 rounded-circle" src="images/user/user-4.png"
-                         alt="Generic placeholder image">
-                    <div class="media-body">
-                        <a href="standard-post.html#" class="text-custom reply-btn"><i class="mdi mdi-reply"></i>&nbsp;
-                            Reply</a>
-                        <h4 class="media-heading"><a href="">Kimberly Chretien</a></h4>
-                        <p class="text-muted post-date">Jun 23, 2017, 11:45 am</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida
-                            pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec
-                            metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
-                    </div>
-                </li>
-
-                <li class="media">
-                    <img class="d-flex mr-3 rounded-circle" src="images/user/user-6.png"
-                         alt="Generic placeholder image">
-                    <div class="media-body">
-                        <a href="standard-post.html#" class="text-custom reply-btn"><i class="mdi mdi-reply"></i>&nbsp;
-                            Reply</a>
-                        <h4 class="media-heading"><a href="">Michelle Durant</a></h4>
-                        <p class="text-muted post-date">Jun 23, 2017, 11:45 am</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida
-                            pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec
-                            metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
-                    </div>
-                </li>
 
             </ul>
 
@@ -209,26 +151,25 @@
                 <h5 class="page-title-alt"><span>Leave a reply</span></h5>
             </div>
 
-            <form action="#" method="post" class="mt-4">
+            <form action="/post/addcomment" method="post" class="mt-4" id="commentForm" th:object="${commentCommand}">
+                <input type="hidden" id="commentPostID" th:value="${post.id}">
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <input id="author" class="form-control" placeholder="Name*" name="author" type="text"
-                                   required="">
+                            <input id="author" class="form-control" placeholder="Name*" name="author" th:field="*{commentUserCommand.name}" type="text" required="">
                         </div>
                     </div>
 
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <input id="email" class="form-control" placeholder="Email*" name="email" type="text"
-                                   required="">
+                            <input id="email" class="form-control" placeholder="Email*" name="email" th:field="*{commentUserCommand.email}" type="text" required="">
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <input id="subject" class="form-control" placeholder="Website" name="subject" type="text">
+                            <input id="subject" class="form-control" placeholder="Website" name="subject" th:field="*{commentUserCommand.website}" type="text">
                         </div>
                     </div>
                 </div>
@@ -236,8 +177,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <textarea id="comment" class="form-control" rows="5" placeholder="Your Message*"
-                                      name="comment" required=""></textarea>
+                            <textarea id="comment" class="form-control" rows="5" placeholder="Your Message*" name="comment" th:field="*{text}" required=""></textarea>
                         </div>
                     </div>
                 </div>

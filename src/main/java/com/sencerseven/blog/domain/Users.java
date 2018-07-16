@@ -1,5 +1,6 @@
 package com.sencerseven.blog.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.Set;
 
 @Getter
 @Setter
+@EqualsAndHashCode(exclude = {"postSet","usersDetail"})
 @Entity
 public class Users implements Serializable {
 
@@ -29,8 +31,13 @@ public class Users implements Serializable {
 
     private int active;
 
+    @OneToOne(mappedBy = "users",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    private UsersDetail usersDetail;
 
-    @OneToMany
+    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
+    private Set<Comment> comment = new HashSet<>();
+
+    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
     private Set<Post> postSet = new HashSet<>();
 
 }
