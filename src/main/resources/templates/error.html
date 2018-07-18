@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Responsive blog template">
+        <meta name="author" content="Zoyothemes">
+
+        <link rel="shortcut icon" href="images/favicon.ico">
+
+        <title>Blogezy - Responsive Blog Template</title>
+
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,600,700" rel="stylesheet">
+
+        <!-- Bootstrap core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+
+        <!-- MENU CSS -->
+        <link href="css/metismenu.min.css" rel="stylesheet" type="text/css" th:href="@{/css/metismenu.min.css}"/>
+
+        <!-- MATERIALDESIGN ICON -->
+        <link rel="stylesheet" type="text/css" href="css/materialdesignicons.min.css"
+              th:href="@{/css/materialdesignicons.min.css}">
+
+        <!-- CUSTOM STYLESHEET -->
+        <link href="css/style.css" rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+        <link href="css/default.css" rel="stylesheet" type="text/css" th:href="@{/css/default.css}"/>
+        <link href="css/default.css" rel="stylesheet" type="text/css" th:href="@{/css/sweetalert/sweetalert.css}"/>
+
+    </head>
+
+    <body>
+        <!-- Begin page -->
+        <div id="wrapper">
+
+            <!-- Top Bar Start -->
+            <div class="topbar-mobile">
+                <div class="logo">
+                    <a href="index.html"><img src="images/logo.png" alt="" class="" style="height: 44px;"></a>
+                    <button class="button-menu-mobile">
+                        <i class="mdi mdi-menu"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Top Bar End -->
+            <!-- ========== Left Sidebar Start ========== -->
+           <div th:replace="fragment/sidemenu"></div>
+            <!-- Left Sidebar End -->
+
+            <div th:replace="fragment/error :: ${type}"></div>
+        </div>
+        <!-- js placed at the end of the document so the pages load faster -->
+        <script src="js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+        <script src="js/popper.min.js" th:src="@{/js/popper.min.js}"></script>
+        <script src="js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+        <script src="js/jquery.easing.min.js" th:src="@{/js/jquery.easing.min.js}"></script>
+        <script src="js/metisMenu.min.js" th:src="@{/js/metisMenu.min.js}"></script>
+        <script src="js/metisMenu.min.js" th:src="@{https://cdn.jsdelivr.net/npm/sweetalert2@7.25.4/dist/sweetalert2.all.min.js}"></script>
+        <!--common script for all pages-->
+        <script src="js/jquery.app.js" th:src="@{/js/jquery.app.js}"></script>
+
+        <script src=""  th:src="@{${js}}"></script>
+    </body>
+
+</html>

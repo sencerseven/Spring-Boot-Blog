@@ -64,7 +64,23 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
         post.setTitle("akıllı telefon");
         post.setDescription("akıllı telefon desc");
         post.setUrl("akilli-telefon");
-        post.setText("Bakıyorum da geç kalmışım senli günlere, bizli günlere; eksik kalmış anılarımız, bitmiş duruyor amaçlarımız. Doğruya hangi amaca hizmet veriyor yaşamımız? Milyonlarca yalanın etrafında dönüp dolaşıyoruz.");
+        post.setImageUrl("http://localhost:8080/images/blog/blog-1.jpg");
+        post.setText("<p>Donec eleifend accumsan nibh eu efficitur. Vivamus lacinia ut turpis egestas convallis. Quisque nec\n" +
+                "                    accumsan justo. Maecenas auctor in nulla nec tincidunt. Pellentesque rutrum molestie tortor, ut egestas\n" +
+                "                    risus commodo a. Praesent a orci nec libero fringilla euismod eu id massa. Nunc eget bibendum odio, sed\n" +
+                "                    sodales eros.Vivamus lacinia, mi eu ultrices mattis.</p>\n" +
+                "\n" +
+                "                <blockquote class=\"blockquote text-center\">\n" +
+                "                    <h6 class=\"mb-0 blockquote-text\">Praesent consectetur vel dui sed molestie. Aliquam imperdiet cursus\n" +
+                "                        dapibus. Quisque vestibulum blandit tellus, nec volutpat turpis. Lorem ipsum dolor sit amet,\n" +
+                "                        consectetur adipiscing elit. Integer posuere erat a ante.</h6>\n" +
+                "                    <footer class=\"blockquote-footer mt-2\">Someone famous in <cite title=\"Source Title\">Source Title</cite>\n" +
+                "                    </footer>\n" +
+                "                </blockquote>\n" +
+                "\n" +
+                "                <p>Quisque nec accumsan justo. Maecenas auctor in nulla nec tincidunt. Pellentesque rutrum molestie tortor,\n" +
+                "                    ut egestas risus commodo a. Praesent a orci nec libero fringilla euismod eu id massa. Nunc eget bibendum\n" +
+                "                    odio, sed sodales eros.Vivamus lacinia, mi eu ultrices mattis.</p>");
         post.setCategory(categoryOptional.get());
         post.setUsers(usersOptional.get());
         post.setCreatedAt(new Date());

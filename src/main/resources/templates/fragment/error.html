@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div class="page-wrapper" th:fragment="notfoundsearch">
+    <section class="mt-5 pb-5">
+        <div class="container">
+
+            <div class="row" style="padding-top: 50px;">
+                <!-- Content-->
+                <div class="col-md-8 col-lg-8 text-center error-page">
+                    <h1>404!</h1>
+                    <h4 class="error-title"><span th:text="${' &quot '+ ex.getMessage()+ ' &quot kelimesi ile ilgisi içerik bulunmamaktadır.'}"></span></h4>
+                    <aside class="widget widget_search">
+                        <form th:action="@{/post}" th:method="GET">
+                            <input class="form-control pr-5" name="search" type="search" placeholder="Ara...">
+                            <button class="search-button" type="submit"><span class="mdi mdi-magnify"></span></button>
+                        </form>
+                    </aside>
+
+                    <a href="index.html" class="btn btn-outline-custom mt-4">BACK TO HOME PAGE</a>
+                </div>
+                <!-- Content end-->
+
+                <!-- Sidebar-->
+                <div th:replace="@{fragment/sidebar.html}"></div>
+                <!-- Sidebar end-->
+            </div>
+
+        </div>
+        <!-- end container -->
+    </section>
+
+</div>
+
+<div class="page-wrapper" th:fragment="categorynotfoundsearch">
+    <section class="mt-5 pb-5">
+        <div class="container">
+
+            <div class="row" style="padding-top: 50px;">
+                <!-- Content-->
+                <div class="col-md-8 col-lg-8 text-center error-page">
+                    <h1>404!</h1>
+                    <h4 class="error-title">Aradığınız Sayfa bulunamadı</h4>
+                    <p class="error-text text-muted mt-3">Anasayfaya gitmek için Anasayfa butonunu kullanın.</p>
+                    <a href="index.html" th:href="@{/}" class="btn btn-outline-custom mt-4">Anasayfa'ya Git..</a>
+                </div>
+                <!-- Content end-->
+
+                <!-- Sidebar-->
+                <div th:replace="@{fragment/sidebar.html}"></div>
+                <!-- Sidebar end-->
+            </div>
+
+        </div>
+        <!-- end container -->
+    </section>
+
+</div>
+
+
+</body>
+</html>

@@ -23,6 +23,7 @@ public class Post {
 
     private String description;
 
+    @Column(columnDefinition="TEXT")
     private String text;
 
     private String url;

@@ -2,6 +2,7 @@ package com.sencerseven.blog.service;
 
 import com.sencerseven.blog.domain.Category;
 import com.sencerseven.blog.domain.Post;
+import com.sencerseven.blog.exception.NotFoundSearchException;
 import com.sencerseven.blog.repository.PostRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -80,6 +81,22 @@ public class PostServiceImpl implements PostService {
     public List<Post> getPopulerPost(int page, int size, String column, Sort.Direction direction) {
 
         return findAll(PageRequest.of(page,size,direction,column));
+    }
+
+    @Override
+    public Page<Post> findPostsByCategory(int page, int size, String column, Sort.Direction direction,Category category) {
+        return postRepository.findPostsByCategory(PageRequest.of(page,size,direction,column),category);
+    }
+
+    @Override
+    public Page<Post> findPostByTitleContaining(int page, int size, String column, Sort.Direction direction, String containing) {
+        Page<Post> posts = postRepository.findPostByTitleContaining(PageRequest.of(page,size,direction,column),containing);
+
+        if(posts.getContent().size() == 0)
+            throw new NotFoundSearchException(containing);
+
+        return posts;
+
     }
 
 

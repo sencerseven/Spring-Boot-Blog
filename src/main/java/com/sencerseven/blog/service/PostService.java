@@ -1,6 +1,7 @@
 package com.sencerseven.blog.service;
 
 
+import com.sencerseven.blog.domain.Category;
 import com.sencerseven.blog.domain.Post;
 import javafx.geometry.Pos;
 import org.springframework.data.domain.Page;
@@ -23,4 +24,8 @@ public interface PostService {
     Post updateBy(Post post);
 
     List<Post> getPopulerPost(int page, int size, String column, Sort.Direction direction);
+
+    Page<Post> findPostsByCategory(int page, int size, String column, Sort.Direction direction, Category category);
+
+    Page<Post> findPostByTitleContaining(int page, int size, String column, Sort.Direction direction, String containing);
 }

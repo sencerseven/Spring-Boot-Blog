@@ -1,5 +1,6 @@
 package com.sencerseven.blog.repository;
 
+import com.sencerseven.blog.domain.Category;
 import com.sencerseven.blog.domain.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,4 +15,8 @@ public interface PostRepository extends JpaRepository<Post,Long> {
 
     Optional<Post> findPostByUrl(String url);
 
+
+    Page<Post> findPostsByCategory(Pageable pageable, Category category);
+
+    Page<Post> findPostByTitleContaining(Pageable pageable,String containing);
 }

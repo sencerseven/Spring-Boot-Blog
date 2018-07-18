@@ -18,7 +18,7 @@
             <ul class="post-meta">
                 <li><i class="mdi mdi-calendar"></i><span th:text="${#dates.format(post.createdAt, 'dd.MMM.yyyy')}">July 03, 2017</span></li>
                 <li><i class="mdi mdi-tag-text-outline"></i> <a href="standard-post.html#" th:text="${post.category.name}">Branding</a></li>
-                <li><i class="mdi mdi-comment-multiple-outline"></i> <a href="standard-post.html#">3 Comments</a></li>
+                <li><i class="mdi mdi-comment-multiple-outline"></i> <a href="standard-post.html#"><span th:text="${#lists.size(post.comment)}">3</span> Yorum</a></li>
             </ul>
         </div>
 
@@ -29,24 +29,7 @@
 
         <div class="blog-detail-description">
 
-            <div>
-                <p>Donec eleifend accumsan nibh eu efficitur. Vivamus lacinia ut turpis egestas convallis. Quisque nec
-                    accumsan justo. Maecenas auctor in nulla nec tincidunt. Pellentesque rutrum molestie tortor, ut egestas
-                    risus commodo a. Praesent a orci nec libero fringilla euismod eu id massa. Nunc eget bibendum odio, sed
-                    sodales eros.Vivamus lacinia, mi eu ultrices mattis.</p>
-
-                <blockquote class="blockquote text-center">
-                    <h6 class="mb-0 blockquote-text">Praesent consectetur vel dui sed molestie. Aliquam imperdiet cursus
-                        dapibus. Quisque vestibulum blandit tellus, nec volutpat turpis. Lorem ipsum dolor sit amet,
-                        consectetur adipiscing elit. Integer posuere erat a ante.</h6>
-                    <footer class="blockquote-footer mt-2">Someone famous in <cite title="Source Title">Source Title</cite>
-                    </footer>
-                </blockquote>
-
-                <p>Quisque nec accumsan justo. Maecenas auctor in nulla nec tincidunt. Pellentesque rutrum molestie tortor,
-                    ut egestas risus commodo a. Praesent a orci nec libero fringilla euismod eu id massa. Nunc eget bibendum
-                    odio, sed sodales eros.Vivamus lacinia, mi eu ultrices mattis.</p>
-            </div>
+            <div th:utext="${post.text}"></div>
 
             <div class="mt-5">
                 <h6>Tags:</h6>
@@ -58,10 +41,10 @@
             </div>
 
             <div class="media post-author-box">
-                <img class="d-flex mr-3 rounded-circle" src="images/user/user-5.png" alt="Generic placeholder image">
+                <img class="d-flex mr-3 rounded-circle" src="images/user/user-5.png" style="height:150px; width:150px;" th:src="${post.users.usersDetail.profileImg}" alt="Generic placeholder image">
                 <div class="media-body">
                     <h4 class="media-heading"><a href="" th:text="${post.users.userName}">Michelle Durant</a></h4>
-                    <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio,
+                    <p class="mb-0" th:text="${post.users.usersDetail.description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio,
                         gravida pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec
                         metus. Mauris ultricies, justo eu convallis placerat, felis enim.</p>
 
@@ -75,7 +58,7 @@
             </div>
 
             <div class="mt-5 text-center">
-                <h5 class="page-title-alt"><span>You Might Also Like</span></h5>
+                <h5 class="page-title-alt"><span>İlginizi çekebilcek yazılar</span></h5>
             </div>
 
             <div class="row">
@@ -134,7 +117,7 @@
 
                 <li class="media" th:each="comment,key : ${commentList}">
                     <img class="d-flex mr-3 rounded-circle" src="images/user/user-5.png"
-                         alt="Generic placeholder image">
+                         alt="Generic placeholder image" style="height:75px; width: 75px;" th:if="${comment.commentUser.imageUrl == null}" th:src="@{/images/profile-2.png}" )>
                     <div class="media-body">
                         <h4 class="media-heading"><a href="" th:text="${comment.commentUser.name}">Michelle Durant</a></h4>
                         <p class="text-muted post-date">Jun 23, 2017, 11:45 am</p>

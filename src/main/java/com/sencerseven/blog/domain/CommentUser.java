@@ -22,6 +22,8 @@ public class CommentUser {
 
     private String website;
 
+    private String imageUrl;
+
     @OneToOne
     @JoinColumn(name = "comment_user_id")
     private Comment comment;

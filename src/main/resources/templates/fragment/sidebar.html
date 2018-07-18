@@ -11,25 +11,24 @@
 
         <!-- Search widget-->
         <aside class="widget widget_search">
-            <form>
-                <input class="form-control pr-5" type="search" placeholder="Search...">
+            <form th:action="@{/post}" th:method="GET">
+                <input class="form-control pr-5" name="search" type="search" placeholder="Search...">
                 <button class="search-button" type="submit"><span class="mdi mdi-magnify"></span></button>
             </form>
         </aside>
 
         <aside class="widget about-widget">
             <div class="widget-title">Hakkımda</div>
+            <div class="text-center" th:each="parameter : ${parameterList}">
+                <img src="images/photo.jpg" th:src="@{/images/photo.jpg}" alt="Hakkımda" class="rounded-circle">
 
-            <div class="text-center">
-                <img src="images/photo.jpg" alt="About Me" class="rounded-circle">
-
-                <p>Quis vero phasellus hac nullam, in quam vitae duis adipiscing mauris leo, laoreet eget at quis, ante vestibulum vivamus vel. Sapien lobortis, eget orci purus amet pede, consectetur neque risus.</p>
+                <p th:text="${parameter.value}">Quis vero phasellus hac nullam, in quam vitae duis adipiscing mauris leo, laoreet eget at quis, ante vestibulum vivamus vel. Sapien lobortis, eget orci purus amet pede, consectetur neque risus.</p>
             </div>
 
         </aside>
 
         <aside class="widget about-widget">
-            <div class="widget-title">Subscribe & Follow</div>
+            <div class="widget-title">Abone & Takip</div>
 
             <ul class="socials">
                 <li><a href="http://facebook.com"><i class="mdi mdi-facebook"></i></a></li>
@@ -44,7 +43,7 @@
         <aside class="widget widget_categories">
                 <div class="widget-title">KATEGORILER</div>
             <ul>
-                <li><a href="index.html#"  th:each="category,index : ${categories}" th:href="@{'/category/'+ ${category.url}}" th:text="${category.name}">Journey</a></li>
+                <li><a href="index.html#"  th:each="category,index : ${categories}" th:href="@{'/post?category='+ ${category.url}}" th:text="${category.name}">Journey</a></li>
 
             </ul>
         </aside>
@@ -55,23 +54,25 @@
             <ul>
                 <li class="clearfix" th:each="post,key : ${populerPost}">
                     <div class="wi">
-                        <a href="index.html#"><img src="images/works/img1.jpg" alt="" class="img-fluid"></a>
+                        <a href="index.html#" th:href="@{'/post/' +${post.url}}"><img src="images/works/img1.jpg" alt="" class="img-fluid"  th:src="${post.imageUrl}"></a>
                     </div>
-                    <div class="wb"><a href="index.html#" th:text="${post.title}" th:href="@{'/post'/ +${post.url}}">Beautiful Day With Friends..</a> <span class="post-date">Jun 15, 2017</span></div>
+                    <div class="wb"><a href="index.html#" th:text="${post.title}" th:href="@{'/post/' + ${post.url}}">Beautiful Day With Friends..</a> <span class="post-date" th:text="${#dates.format(post.createdAt,'dd.MMM.yyyy')}"></span></div>
                 </li>
 
             </ul>
         </aside>
 
         <!-- Text widget-->
+        <!--
         <aside class="widget">
             <div class="widget-title">Text Widget</div>
 
             <p class="text-muted text-widget-des">Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed. Craft beer elit seitan exercitation, photo booth et 8-bit kale chips proident chillwave deep v laborum. Aliquip veniam delectus, Marfa eiusmod Pinterest in do umami readymade swag. </p>
 
         </aside>
-
+        -->
         <!-- Archives widget-->
+        <!--
         <aside class="widget">
             <div class="widget-title">Archives</div>
 
@@ -83,7 +84,7 @@
             </ul>
 
         </aside>
-
+        -->
         <!-- Tags widget-->
         <aside class="widget widget_tag_cloud">
             <div class="widget-title">Tags</div>

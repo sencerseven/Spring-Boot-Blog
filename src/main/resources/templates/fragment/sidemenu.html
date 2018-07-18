@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -11,8 +11,8 @@
     <div class="slimscroll-menu" id="remove-scroll">
 
         <div class="logo">
-            <a href="index.html"><img src="images/logo.png" alt="" class="" style="height: 44px;"></a>
-            <p class="text-muted">Graduating from the halls of the University Of Western Sydney in late 2011. </p>
+            <a href="index.html"><img src="images/logo.png" th:src="@{/images/banner.png}" alt="" class="" style="height: 64px;"></a>
+            <p class="text-muted">JavaEE hakkında blog sitesi</p>
         </div>
 
         <!--- Sidemenu -->
@@ -21,9 +21,10 @@
             <ul class="metismenu" id="side-menu">
 
                 <li>
-                    <a href="index.html"><span> Home</span></a>
+                    <a href="" th:href="@{/}" ><span>Anasayfa</span></a>
                 </li>
 
+                <!--
                 <li>
                     <a href="javascript: void(0);"><span> Features </span></a>
                     <ul class="nav-second-level" aria-expanded="false">
@@ -36,31 +37,21 @@
                         <li><a href="404.html">Error 404</a></li>
                     </ul>
                 </li>
+                -->
+
 
                 <li>
-                    <a href="javascript: void(0);"><span> Lifestyle </span></a>
+                    <a href="about.html" th:href="@{/about}">Hakkımda</a>
                 </li>
 
                 <li>
-                    <a href="javascript: void(0);"><span> Travel </span></a>
-                </li>
-
-                <li>
-                    <a href="javascript: void(0);"><span> Music </span></a>
-                </li>
-
-                <li>
-                    <a href="about.html">About</a>
-                </li>
-
-                <li>
-                    <a href="contact.html">Contact</a>
+                    <a href="contact.html" th:href="@{contact}">İletişim</a>
                 </li>
 
             </ul>
 
-            <div class="copyright-box">
-                <p>2017 © Blogezy. </p>
+            <div style="padding-bottom:0px; bottom:0px; margin-bottom:0px;" class="copyright-box">
+                <p>2018 © Sencer Seven. </p>
             </div>
 
         </div>

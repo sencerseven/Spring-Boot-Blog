@@ -4,11 +4,15 @@ import com.sencerseven.blog.command.CommentCommand;
 import com.sencerseven.blog.command.CommentUserCommand;
 import com.sencerseven.blog.domain.Category;
 import com.sencerseven.blog.domain.Comment;
+import com.sencerseven.blog.domain.Parameter;
 import com.sencerseven.blog.domain.Post;
 import com.sencerseven.blog.model.JsonResponder;
 import com.sencerseven.blog.service.CategoryService;
 import com.sencerseven.blog.service.CommentService;
+import com.sencerseven.blog.service.ParameterService;
 import com.sencerseven.blog.service.PostService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -26,11 +30,13 @@ public class PostController {
     PostService postService;
     CategoryService categoryService;
     CommentService commentService;
+    ParameterService parameterService;
 
-    public PostController(PostService postService, CategoryService categoryService, CommentService commentService) {
+    public PostController(PostService postService, CategoryService categoryService, CommentService commentService, ParameterService parameterService) {
         this.postService = postService;
         this.categoryService = categoryService;
         this.commentService = commentService;
+        this.parameterService = parameterService;
     }
 
     @GetMapping(value = "{url}")
@@ -40,6 +46,7 @@ public class PostController {
         List<Post> populerList = postService.getPopulerPost(0, 1, "view", Sort.Direction.DESC);
         List<Category> categoryList = categoryService.getCategoriesByActive(1);
         List<Comment> commentList = commentService.findCommentsByPostAndActive(post,1);
+        List<Parameter> parameterList = parameterService.findParameterByKey("ABOUT");
 
         postService.updateBy(post);
 
@@ -47,10 +54,37 @@ public class PostController {
         model.addAttribute("populerPost", populerList);
         model.addAttribute("categories", categoryList);
         model.addAttribute("commentList",commentList);
+        model.addAttribute("parameterList",parameterList);
         model.addAttribute("commentCommand", new CommentCommand());
 
 
         return "index";
+    }
+
+    @RequestMapping
+    public String searchAction(@RequestParam(name="category",required = false)String tmpCategory,
+                               @RequestParam(name="search",required = false)String tmpSearch,Model model){
+        Page<Post> postPage;
+
+        if(tmpCategory != null && !tmpCategory.equals("")){
+            Category category = categoryService.getCategoriesByUrl(tmpCategory);
+            postPage = postService.findPostsByCategory(0,10,"id",Sort.Direction.DESC,category);
+        }else{
+            postPage = postService.findPostByTitleContaining(0,10,"id",Sort.Direction.DESC,tmpSearch);
+        }
+
+
+
+        List<Category> categoryList = categoryService.getCategoriesByActive(1);
+        List<Post> populerList = postService.getPopulerPost(0,1,"view",Sort.Direction.DESC);
+
+        model.addAttribute("posts",postPage);
+        model.addAttribute("categories",categoryList);
+        model.addAttribute("populerPost",populerList);
+
+
+        return "index";
+
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/addcomment/{id}",
