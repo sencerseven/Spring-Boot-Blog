@@ -12,6 +12,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -36,11 +37,20 @@ public class IndexController {
         List<Post> populerList = postService.getPopulerPost(0,1,"view",Sort.Direction.DESC);
         List<Parameter> parameterList = parameterService.findParameterByKey("ABOUT");
 
+
+
        model.addAttribute("posts",postPage);
        model.addAttribute("categories",categoryList);
         model.addAttribute("parameterList",parameterList);
         model.addAttribute("populerPost",populerList);
 
         return "index";
+    }
+
+    @RequestMapping(value = {"/login"})
+    public String loginAction(@RequestParam(name = "error",required = false) String error, Model model){
+        model.addAttribute("error");
+
+        return ("index");
     }
 }
