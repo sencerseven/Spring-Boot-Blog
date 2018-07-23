@@ -32,8 +32,8 @@ public class IndexController {
     @RequestMapping(value = {"", "/"})
     public String indexAction(Model model) {
 
-       Page<Post> postPage = postService.findPostsBy(PageRequest.of(0, 10));
-       List<Category> categoryList = categoryService.getCategoriesByActive(1);
+       Page<Post> postPage = postService.findPostsBy(0,10,"id", Sort.Direction.DESC);
+       List<Category> categoryList = categoryService.getCategoriesByActive(true);
         List<Post> populerList = postService.getPopulerPost(0,1,"view",Sort.Direction.DESC);
         List<Parameter> parameterList = parameterService.findParameterByKey("ABOUT");
 

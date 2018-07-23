@@ -43,7 +43,7 @@
         <aside class="widget widget_categories">
                 <div class="widget-title">KATEGORILER</div>
             <ul>
-                <li><a href="index.html#"  th:each="category,index : ${categories}" th:href="@{'/post?category='+ ${category.url}}" th:text="${category.name}">Journey</a></li>
+                <li th:each="category,index : ${categories}"><a href="index.html#" th:href="@{'/post?category='+ ${category.url}}" th:text="${category.name}">Journey</a></li>
 
             </ul>
         </aside>

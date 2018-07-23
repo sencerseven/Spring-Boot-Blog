@@ -1,6 +1,7 @@
 package com.sencerseven.blog.advice;
 
 import com.sencerseven.blog.exception.NotFoundCategoryException;
+import com.sencerseven.blog.exception.NotFoundPostInCategoryException;
 import com.sencerseven.blog.exception.NotFoundSearchException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,5 +27,24 @@ public class ExceptionAdvice {
         modelAndView.addObject("type","categorynotfoundsearch");
 
         return modelAndView;
+    }
+
+    @ExceptionHandler(NotFoundPostInCategoryException.class)
+    public ModelAndView NotFoundPostInCategoryException(){
+        ModelAndView modelAndView = new ModelAndView("error");
+
+        modelAndView.addObject("type","notfoundsearch");
+
+        return modelAndView;
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ModelAndView IllegalArgumentException(){
+        ModelAndView modelAndView = new ModelAndView("error");
+
+        modelAndView.addObject("type","categorynotfoundsearch");
+
+        return modelAndView;
+
     }
 }

@@ -1,5 +1,7 @@
 package com.sencerseven.blog.service;
 
+import com.sencerseven.blog.converter.PostCommandToPostConverter;
+import com.sencerseven.blog.converter.PostToPostCommandConverter;
 import com.sencerseven.blog.domain.Post;
 import com.sencerseven.blog.repository.PostRepository;
 import org.junit.Before;
@@ -8,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
 
@@ -24,22 +27,28 @@ public class PostServiceImplTest {
     @Mock
     PostRepository postRepository;
 
+    @Mock
+    PostCommandToPostConverter postCommandToPostConverter;
+
+    @Mock
+    PostToPostCommandConverter postToPostCommandConverter;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        postService = new PostServiceImpl(postRepository);
+        postService = new PostServiceImpl(postRepository,postCommandToPostConverter,postToPostCommandConverter);
     }
 
     @Test
     public void findPostsBy() {
 
-        assertNull(postService.findPostsBy(null));
+       // assertNull(postService.findPostsBy(1,2  ,"id",Sort.Direction.DESC));
 
         Page<Post> postPage = Page.empty();
 
-        when(postRepository.findPostsBy(PageRequest.of(1, 2))).thenReturn(postPage);
+        when(postRepository.findPostsBy(PageRequest.of(1, 2,Sort.Direction.DESC,"id"))).thenReturn(postPage);
 
-        Page<Post> postResult = postService.findPostsBy(PageRequest.of(1, 2));
+        Page<Post> postResult = postService.findPostsBy(1, 2,"id", Sort.Direction.DESC);
 
         assertNotNull(postResult);
         verify(postRepository, times(1)).findPostsBy(any());

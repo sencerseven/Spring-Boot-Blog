@@ -43,7 +43,7 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
         category.setName("teknoloji");
         category.setDescription("teknoloji");
         category.setUrl("teknoloji");
-        category.setActive(1);
+        category.setActive(true);
         categories.add(category);
 
         return categories;
@@ -64,6 +64,7 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
         post.setTitle("akıllı telefon");
         post.setDescription("akıllı telefon desc");
         post.setUrl("akilli-telefon");
+        post.setView(1);
         post.setImageUrl("http://localhost:8080/images/blog/blog-1.jpg");
         post.setText("<p>Donec eleifend accumsan nibh eu efficitur. Vivamus lacinia ut turpis egestas convallis. Quisque nec\n" +
                 "                    accumsan justo. Maecenas auctor in nulla nec tincidunt. Pellentesque rutrum molestie tortor, ut egestas\n" +

@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Getter
 @Setter
 @Entity
@@ -22,8 +23,7 @@ public class Category {
 
     private String url;
 
-    @Column(columnDefinition = "int default 0")
-    private int active;
+    private boolean active;
 
     @ManyToOne
     @JoinColumn(name = "PARENT_CATEGORY_ID")
@@ -47,6 +47,5 @@ public class Category {
             childCategory.setParentCategory(null);
         return this;
     }
-
 
 }

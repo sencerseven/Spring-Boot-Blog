@@ -42,12 +42,18 @@ public class Post {
     @OneToMany(mappedBy = "post",fetch = FetchType.LAZY)
     private Set<Comment> comment = new HashSet<>();
 
-    private Long view;
+    @Column(columnDefinition = "int default 0")
+    private int view;
 
     public Post addCategory(Category category){
         category.getPosts().add(this);
         this.category = category;
         return this;
+    }
+
+    @PrePersist
+    protected void onCreate() {
+        if (createdAt == null) { createdAt = new Date(); }
     }
 
 }

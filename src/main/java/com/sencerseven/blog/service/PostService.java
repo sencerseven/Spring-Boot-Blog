@@ -1,6 +1,8 @@
 package com.sencerseven.blog.service;
 
 
+import com.sencerseven.blog.command.PostCommand;
+import com.sencerseven.blog.command.UsersCommand;
 import com.sencerseven.blog.domain.Category;
 import com.sencerseven.blog.domain.Post;
 import javafx.geometry.Pos;
@@ -17,7 +19,7 @@ public interface PostService {
 
     List<Post> findAll(Pageable pageable);
 
-    Page<Post> findPostsBy(Pageable pageable);
+    Page<Post> findPostsBy(int page, int size, String column, Sort.Direction direction);
 
     Post getPostByUrl(String url);
 
@@ -28,4 +30,6 @@ public interface PostService {
     Page<Post> findPostsByCategory(int page, int size, String column, Sort.Direction direction, Category category);
 
     Page<Post> findPostByTitleContaining(int page, int size, String column, Sort.Direction direction, String containing);
+
+    PostCommand savePostsCommand(PostCommand postCommand, UsersCommand usersCommand);
 }

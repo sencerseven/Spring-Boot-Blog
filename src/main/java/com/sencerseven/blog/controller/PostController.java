@@ -43,8 +43,8 @@ public class PostController {
     public String indexAction(@PathVariable("url") String url, Model model) {
 
         Post post = postService.getPostByUrl(url);
-        List<Post> populerList = postService.getPopulerPost(0, 1, "view", Sort.Direction.DESC);
-        List<Category> categoryList = categoryService.getCategoriesByActive(1);
+        List<Post> populerList = postService.getPopulerPost(0, 3, "view", Sort.Direction.DESC);
+        List<Category> categoryList = categoryService.getCategoriesByActive(true);
         List<Comment> commentList = commentService.findCommentsByPostAndActive(post,1);
         List<Parameter> parameterList = parameterService.findParameterByKey("ABOUT");
 
@@ -75,7 +75,7 @@ public class PostController {
 
 
 
-        List<Category> categoryList = categoryService.getCategoriesByActive(1);
+        List<Category> categoryList = categoryService.getCategoriesByActive(true);
         List<Post> populerList = postService.getPopulerPost(0,1,"view",Sort.Direction.DESC);
 
         model.addAttribute("posts",postPage);

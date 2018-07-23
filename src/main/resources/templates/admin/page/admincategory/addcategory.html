@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+
+    <script src="js/lib/jquery/jquery.min.js" th:src="@{/js/lib/jquery/jquery.min.js}"></script>
+    <!-- Form validation -->
+    <script src="js/lib/form-validation/jquery.validate.min.js" th:src="@{/js/lib/form-validation/jquery.validate.min.js}"></script>
+    <script src="js/lib/form-validation/jquery.validate-init.js" th:src="@{/js/lib/form-validation/jquery.validate-init.js}"></script>
+
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+</head>
+<body>
+<!-- Start Page Content -->
+<!--/*@thymesVar id="categoryCommand" type="com.sencerseven.blog.command.CategoryCommand"*/-->
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="form-validation">
+                    <form class="form-valide" action="#" th:action="@{/admin/category/add}" method="post" th:object="${categoryCommand}">
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label" for="val-username">Kategori Adı <span class="text-danger">*</span></label>
+                            <div class="col-lg-6">
+                                <input type="text" class="form-control" id="val-username" name="val-username" placeholder="Kategori ismini giriniz.." th:field="*{name}">
+                                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label" for="val-suggestions">Kategori Tanımı <span class="text-danger">*</span></label>
+                            <div class="col-lg-6">
+                                <textarea class="form-control" id="val-suggestions" name="val-suggestions" rows="5" placeholder="Kategori tanımlamasını giriniz.." th:field="*{description}"></textarea>
+                                <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label" for="val-skill">Üst Kategori</label>
+                            <div class="col-lg-6">
+                                <select class="form-control" id="val-skill" name="val-skill" th:field="*{parentCategory.id}">
+                                    <option value="">Please select</option>
+                                    <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-4 col-form-label" for="val-skill">Durum</label>
+                            <div class="col-lg-6">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" data-toggle="toggle" th:field="*{active}">
+                                        Menude Gözüksünmü ?
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-lg-8 ml-auto">
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End PAge Content -->
+
+
+</body>
+</html>
