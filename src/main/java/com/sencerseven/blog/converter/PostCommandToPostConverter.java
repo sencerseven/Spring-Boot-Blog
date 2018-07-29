@@ -3,6 +3,8 @@ package com.sencerseven.blog.converter;
 import com.sencerseven.blog.command.PostCommand;
 import com.sencerseven.blog.domain.Post;
 import com.sencerseven.blog.functions.BlogHelpers;
+import com.sencerseven.blog.repository.PostRepository;
+import com.sencerseven.blog.service.PostService;
 import com.sencerseven.blog.service.S3Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -19,6 +21,9 @@ public class PostCommandToPostConverter implements Converter<PostCommand,Post> {
     UsersCommandToUsersConverter usersCommandToUsersConverter;
 
     CategoryCommandToCategoryConverter categoryCommandToCategoryConverter;
+
+    @Autowired
+    PostRepository postRepository;
 
     public PostCommandToPostConverter(S3Services s3Services, UsersCommandToUsersConverter usersCommandToUsersConverter, CategoryCommandToCategoryConverter categoryCommandToCategoryConverter) {
         this.s3Services = s3Services;
@@ -44,9 +49,14 @@ public class PostCommandToPostConverter implements Converter<PostCommand,Post> {
         if(postCommand.getUsers() != null && postCommand.getUsers().getId() != null)
             post.setUsers(usersCommandToUsersConverter.convert(postCommand.getUsers()));
 
-        if(postCommand.getMultipartFile() != null && postCommand.getMultipartFile().getSize() > 0)
+        if(postCommand.getMultipartFile() != null && postCommand.getMultipartFile().getSize() > 0){
+
             post.setImageUrl(s3Services.uploadFile(postCommand.getMultipartFile().getOriginalFilename(),
                     "posts",postCommand.getMultipartFile()));
+        }else{
+            post.setImageUrl(postRepository.findById(postCommand.getId()).get().getImageUrl());
+
+        }
 
         return post;
 
