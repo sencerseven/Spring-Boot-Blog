@@ -21,5 +21,7 @@ public class CategoryCommand {
 
     private boolean active;
 
+    private String url;
+
 
 }

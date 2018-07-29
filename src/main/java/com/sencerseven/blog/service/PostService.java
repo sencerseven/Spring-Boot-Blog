@@ -3,6 +3,7 @@ package com.sencerseven.blog.service;
 
 import com.sencerseven.blog.command.PostCommand;
 import com.sencerseven.blog.command.UsersCommand;
+import com.sencerseven.blog.controller.PostController;
 import com.sencerseven.blog.domain.Category;
 import com.sencerseven.blog.domain.Post;
 import javafx.geometry.Pos;
@@ -19,13 +20,13 @@ public interface PostService {
 
     List<Post> findAll(Pageable pageable);
 
-    Page<Post> findPostsBy(int page, int size, String column, Sort.Direction direction);
+    Page<PostCommand> findPostsBy(int page, int size, String column, Sort.Direction direction);
 
     Post getPostByUrl(String url);
 
     Post updateBy(Post post);
 
-    List<Post> getPopulerPost(int page, int size, String column, Sort.Direction direction);
+    List<PostCommand> getPopulerPost(int page, int size, String column, Sort.Direction direction);
 
     Page<Post> findPostsByCategory(int page, int size, String column, Sort.Direction direction, Category category);
 

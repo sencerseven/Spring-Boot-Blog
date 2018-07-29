@@ -9,15 +9,13 @@ import com.sencerseven.blog.domain.Post;
 import com.sencerseven.blog.exception.NotFoundPostInCategoryException;
 import com.sencerseven.blog.exception.NotFoundSearchException;
 import com.sencerseven.blog.repository.PostRepository;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -53,10 +51,12 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<Post> findPostsBy(int page, int size, String column, Sort.Direction direction) {
+    public Page<PostCommand> findPostsBy(int page, int size, String column, Sort.Direction direction) {
         Page<Post> postPage = postRepository.findPostsBy(PageRequest.of(page,size,direction,column));
 
-        return postPage;
+        List<PostCommand> postCommandList = postPage.getContent().stream().map(post -> postToPostCommandConverter.convert(post)).collect(Collectors.toList());
+
+        return new PageImpl<>(postCommandList,PageRequest.of(page,size),postPage.getTotalElements());
     }
 
     @Override
@@ -85,9 +85,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getPopulerPost(int page, int size, String column, Sort.Direction direction) {
+    public List<PostCommand> getPopulerPost(int page, int size, String column, Sort.Direction direction) {
 
-        return findAll(PageRequest.of(page,size,direction,column));
+        return findAll(PageRequest.of(page,size,direction,column)).stream().map(post -> postToPostCommandConverter.convert(post)).collect(Collectors.toList());
     }
 
     @Override

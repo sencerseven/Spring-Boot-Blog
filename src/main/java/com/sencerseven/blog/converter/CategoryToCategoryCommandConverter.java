@@ -19,6 +19,7 @@ public class CategoryToCategoryCommandConverter implements Converter<Category, C
         categoryCommand.setName(category.getName());
         categoryCommand.setDescription(category.getDescription());
         categoryCommand.setActive(category.isActive());
+        categoryCommand.setUrl(category.getUrl());
 
 
         if (category.getParentCategory() != null && category.getParentCategory().getId() != null)

@@ -40,7 +40,7 @@ public class AdminPostController {
     public String indexAction(Model model){
 
 
-        Page<Post> postList = postService.findPostsBy(0,100,"id",Sort.Direction.DESC);
+        Page<PostCommand> postList = postService.findPostsBy(0,100,"id",Sort.Direction.DESC);
 
         model.addAttribute("posts",postList);
 

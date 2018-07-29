@@ -1,5 +1,6 @@
 package com.sencerseven.blog.service;
 
+import com.sencerseven.blog.command.PostCommand;
 import com.sencerseven.blog.converter.PostCommandToPostConverter;
 import com.sencerseven.blog.converter.PostToPostCommandConverter;
 import com.sencerseven.blog.domain.Post;
@@ -48,7 +49,7 @@ public class PostServiceImplTest {
 
         when(postRepository.findPostsBy(PageRequest.of(1, 2,Sort.Direction.DESC,"id"))).thenReturn(postPage);
 
-        Page<Post> postResult = postService.findPostsBy(1, 2,"id", Sort.Direction.DESC);
+        Page<PostCommand> postResult = postService.findPostsBy(1, 2,"id", Sort.Direction.DESC);
 
         assertNotNull(postResult);
         verify(postRepository, times(1)).findPostsBy(any());

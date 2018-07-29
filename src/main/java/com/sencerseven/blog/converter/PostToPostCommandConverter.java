@@ -12,13 +12,15 @@ public class PostToPostCommandConverter implements Converter<Post, PostCommand> 
 
     UsersToUsersCommandConverter usersToUsersCommandConverter;
     CategoryToCategoryCommandConverter categoryToCategoryCommandConverter;
+    CommentToCommentCommandConverter commentToCommentCommandConverter;
 
     @Autowired
     S3Services s3Services;
 
-    public PostToPostCommandConverter(UsersToUsersCommandConverter usersToUsersCommandConverter, CategoryToCategoryCommandConverter categoryToCategoryCommandConverter) {
+    public PostToPostCommandConverter(UsersToUsersCommandConverter usersToUsersCommandConverter, CategoryToCategoryCommandConverter categoryToCategoryCommandConverter, CommentToCommentCommandConverter commentToCommentCommandConverter) {
         this.usersToUsersCommandConverter = usersToUsersCommandConverter;
         this.categoryToCategoryCommandConverter = categoryToCategoryCommandConverter;
+        this.commentToCommentCommandConverter = commentToCommentCommandConverter;
     }
 
     @Override
@@ -31,6 +33,8 @@ public class PostToPostCommandConverter implements Converter<Post, PostCommand> 
         postCommand.setText(post.getText());
         postCommand.setTitle(post.getTitle());
         postCommand.setDescription(post.getDescription());
+        postCommand.setCreatedAt(post.getCreatedAt());
+        postCommand.setUrl(post.getUrl());
 
         postCommand.setImageUrl(s3Services.getSignUrl(post.getImageUrl(),60));
 
@@ -40,6 +44,9 @@ public class PostToPostCommandConverter implements Converter<Post, PostCommand> 
 
         if (post.getCategory() != null)
             postCommand.setCategory(categoryToCategoryCommandConverter.convert(post.getCategory()));
+
+        if(post.getComment() != null && post.getComment().size() > 0)
+            post.getComment().forEach(comment -> postCommand.getComment().add(commentToCommentCommandConverter.convert(comment)));
 
         return postCommand;
 
