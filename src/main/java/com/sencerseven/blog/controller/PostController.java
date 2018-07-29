@@ -2,6 +2,8 @@ package com.sencerseven.blog.controller;
 
 import com.sencerseven.blog.command.CommentCommand;
 import com.sencerseven.blog.command.CommentUserCommand;
+import com.sencerseven.blog.command.PostCommand;
+import com.sencerseven.blog.converter.PostToPostCommandConverter;
 import com.sencerseven.blog.domain.Category;
 import com.sencerseven.blog.domain.Comment;
 import com.sencerseven.blog.domain.Parameter;
@@ -31,18 +33,21 @@ public class PostController {
     CategoryService categoryService;
     CommentService commentService;
     ParameterService parameterService;
+    PostToPostCommandConverter postToPostCommandConverter;
 
-    public PostController(PostService postService, CategoryService categoryService, CommentService commentService, ParameterService parameterService) {
+    public PostController(PostService postService, CategoryService categoryService, CommentService commentService, ParameterService parameterService, PostToPostCommandConverter postToPostCommandConverter) {
         this.postService = postService;
         this.categoryService = categoryService;
         this.commentService = commentService;
         this.parameterService = parameterService;
+        this.postToPostCommandConverter = postToPostCommandConverter;
     }
 
     @GetMapping(value = "{url}")
     public String indexAction(@PathVariable("url") String url, Model model) {
 
         Post post = postService.getPostByUrl(url);
+        PostCommand postCommand = postToPostCommandConverter.convert(post);
         List<Post> populerList = postService.getPopulerPost(0, 3, "view", Sort.Direction.DESC);
         List<Category> categoryList = categoryService.getCategoriesByActive(true);
         List<Comment> commentList = commentService.findCommentsByPostAndActive(post,1);
@@ -50,7 +55,7 @@ public class PostController {
 
         postService.updateBy(post);
 
-        model.addAttribute("post", post);
+        model.addAttribute("post", postCommand);
         model.addAttribute("populerPost", populerList);
         model.addAttribute("categories", categoryList);
         model.addAttribute("commentList",commentList);

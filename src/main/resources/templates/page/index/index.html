@@ -25,7 +25,7 @@
         </div>
 
         <div class="post-preview">
-            <a href="index.html#"><img src="images/blog/blog-1.jpg" alt="" class="img-fluid rounded"></a>
+            <a href="index.html#"><img  th:src="${post.imageUrl}" alt="" class="img-fluid rounded"></a>
         </div>
 
         <div class="post-content" th:text="${post.description}">
