@@ -35,7 +35,7 @@ public class IndexController {
 
        Page<PostCommand> postPage = postService.findPostsBy(0,10,"id", Sort.Direction.DESC);
        List<Category> categoryList = categoryService.getCategoriesByActive(true);
-        List<PostCommand> populerList = postService.getPopulerPost(0,1,"view",Sort.Direction.DESC);
+        List<PostCommand> populerList = postService.getPopulerPost(0,3,"view",Sort.Direction.DESC);
         List<Parameter> parameterList = parameterService.findParameterByKey("ABOUT");
 
 
