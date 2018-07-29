@@ -16,7 +16,7 @@ public class RoleToRoleCommandConverter implements Converter<Role,RoleCommand> {
 
         RoleCommand roleCommand = new RoleCommand();
         roleCommand.setId(role.getId());
-        roleCommand.setRole(roleCommand.getRole());
+        roleCommand.setRole(role.getRole());
 
         return roleCommand;
     }
