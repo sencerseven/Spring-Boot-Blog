@@ -3,11 +3,9 @@ package com.sencerseven.blog.service;
 
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.CannedAccessControlList;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
+import com.amazonaws.services.s3.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
 @Slf4j
 @Service
@@ -98,5 +97,26 @@ public class S3ServicesImpl implements S3Services {
     public String getUrl(String path){
         String url =  s3client.getUrl(bucketName,path).toExternalForm();
         return url;
+    }
+
+    @Override
+    public String getSignUrl(String objectKey,int expression) {
+
+        java.util.Date expiration = new java.util.Date();
+        long expTimeMillis = expiration.getTime();
+        expTimeMillis += 1000 * 60 * expression;
+        expiration.setTime(expTimeMillis);
+
+        GeneratePresignedUrlRequest generatePresignedUrlRequest = new GeneratePresignedUrlRequest(bucketName,objectKey)
+                .withMethod(HttpMethod.GET)
+                .withExpiration(expiration);
+
+        URL url =s3client.generatePresignedUrl(generatePresignedUrlRequest);
+
+        return url.toString();
+
+
+
+
     }
 }

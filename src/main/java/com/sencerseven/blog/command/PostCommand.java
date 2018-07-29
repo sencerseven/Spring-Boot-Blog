@@ -25,6 +25,8 @@ public class PostCommand {
 
     private UsersCommand users;
 
+    private String imageUrl;
+
     private MultipartFile multipartFile;
 
 }

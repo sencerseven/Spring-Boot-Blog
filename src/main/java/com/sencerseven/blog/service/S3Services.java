@@ -7,4 +7,6 @@ public interface S3Services {
     public void uploadFile(String keyName, String uploadFilePath);
     public String uploadFile(String keyName, String path, MultipartFile file);
     public String getUrl(String path);
+
+    public String getSignUrl(String objectKey,int expression);
 }
