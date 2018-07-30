@@ -35,6 +35,8 @@ public class Comment {
     @OneToOne(cascade = CascadeType.ALL)
     private CommentUser commentUser;
 
+    private String type;
+
     public Comment addCommentUser(CommentUser commentUser){
         commentUser.setComment(this);
         this.commentUser = commentUser;

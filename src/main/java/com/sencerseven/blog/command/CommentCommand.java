@@ -13,5 +13,7 @@ public class CommentCommand {
 
     private String text;
 
+    private String type;
+
     CommentUserCommand commentUserCommand;
 }

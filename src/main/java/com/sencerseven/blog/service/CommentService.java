@@ -9,6 +9,7 @@ import java.util.List;
 public interface CommentService {
 
     public CommentCommand saveCommentCommand(CommentCommand commentCommand, Post post);
+    public CommentCommand saveCommentCommand(CommentCommand commentCommand,String type);
 
     List<Comment> findCommentsByPostAndActive(Post post, int status);
 }

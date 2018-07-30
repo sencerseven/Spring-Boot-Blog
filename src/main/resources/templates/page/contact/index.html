@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<div class="col-xl-8">
+
+    <!-- Post-->
+    <article class="post">
+
+        <div class="blog-detail-description">
+
+            <div class="mt-5">
+                <h5 class="page-title-alt"><span>Leave a reply</span></h5>
+            </div>
+
+            <form action="/contact/add" method="post" class="mt-4" id="commentForm" th:object="${commentCommand}">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input id="author" class="form-control" placeholder="Name*" name="author" th:field="*{commentUserCommand.name}" type="text" required="">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input id="email" class="form-control" placeholder="Email*" name="email" th:field="*{commentUserCommand.email}" type="text" required="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <input id="subject" class="form-control" placeholder="Website" name="subject" th:field="*{commentUserCommand.website}" type="text">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <textarea id="comment" class="form-control" rows="5" placeholder="Your Message*" name="comment" th:field="*{text}" required=""></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <button name="submit" type="submit" id="submit" class="btn btn-dark">Post Comment</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+    </article>
+    <!-- Post end-->
+
+</div>
+
+</body>
+</html>

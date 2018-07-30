@@ -29,9 +29,20 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     @Override
     public CommentCommand saveCommentCommand(CommentCommand commentCommand, Post post) {
+        commentCommand.setType("post");
         Comment commentDetach = commentCommandToCommentConverter.convert(commentCommand);
 
         commentDetach.setPost(post);
+
+        Comment comment = commentRepository.save(commentDetach);
+
+        return commentToCommentCommandConverter.convert(comment);
+    }
+
+    @Override
+    public CommentCommand saveCommentCommand(CommentCommand commentCommand,String type) {
+        commentCommand.setType(type);
+        Comment commentDetach = commentCommandToCommentConverter.convert(commentCommand);
 
         Comment comment = commentRepository.save(commentDetach);
 

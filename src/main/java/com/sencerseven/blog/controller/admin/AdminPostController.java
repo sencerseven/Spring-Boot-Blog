@@ -69,7 +69,7 @@ public class AdminPostController {
         }
 
         postService.savePostsCommand(postCommand,usersCommand);
-        return "admin";
+        return "redirect:/admin/post";
 
     }
 

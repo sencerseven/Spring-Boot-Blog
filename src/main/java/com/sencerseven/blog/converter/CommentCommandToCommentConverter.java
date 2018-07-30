@@ -24,6 +24,7 @@ public class CommentCommandToCommentConverter implements Converter<CommentComman
 
         comment.setId(commentCommand.getId());
         comment.setText(commentCommand.getText());
+        comment.setType(commentCommand.getType());
 
         if(commentCommand.getCommentUserCommand() != null)
             comment.addCommentUser(commentUserCommandToCommentUserConverter.convert(commentCommand.getCommentUserCommand()));
