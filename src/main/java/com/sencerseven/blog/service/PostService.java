@@ -28,9 +28,13 @@ public interface PostService {
 
     List<PostCommand> getPopulerPost(int page, int size, String column, Sort.Direction direction);
 
-    Page<Post> findPostsByCategory(int page, int size, String column, Sort.Direction direction, Category category);
+    Page<PostCommand> findPostsByCategory(int page, int size, String column, Sort.Direction direction, Category category);
 
-    Page<Post> findPostByTitleContaining(int page, int size, String column, Sort.Direction direction, String containing);
+    Page<PostCommand> findPostByTitleContaining(int page, int size, String column, Sort.Direction direction, String containing);
+
+    Page<PostCommand> findPostByTagsContaining(int page, int size, String column, Sort.Direction direction, String containing);
 
     PostCommand savePostsCommand(PostCommand postCommand, UsersCommand usersCommand);
+
+    List<PostCommand> findPostRand(int page, int size, String column, Sort.Direction direction,Post tempPost);
 }

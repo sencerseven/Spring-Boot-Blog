@@ -30,6 +30,8 @@ public class Post {
 
     private String imageUrl;
 
+    private String tags;
+
     @ManyToOne
     private Category category;
 

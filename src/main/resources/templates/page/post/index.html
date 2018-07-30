@@ -34,9 +34,7 @@
             <div class="mt-5">
                 <h6>Tags:</h6>
                 <div class="tagcloud">
-                    <a href="standard-post.html#">logo</a>
-                    <a href="standard-post.html#">business</a>
-                    <a href="standard-post.html#">agency</a>
+                    <a href="standard-post.html#" th:each="tag : ${#strings.arraySplit(post.tags,',')}" th:text="${tag}" th:href="@{'/post?tags=' + ${tag}}">logo</a>
                 </div>
             </div>
 
@@ -62,48 +60,18 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-4">
+                <div class="col-sm-4" th:each="post : ${suggessPostList}">
                     <article class="related-post">
                         <div class="post-preview">
                             <a href="http://zoyothemes.com/blogezy/blog-single.html"><img src="images/blog/blog-2.jpg"
                                                                                           alt=""
-                                                                                          class="img-fluid rounded"></a>
+                                                                                          class="img-fluid rounded" th:src="${post.imageUrl}"></a>
                         </div>
 
                         <div class="post-header">
-                            <h6><a href="http://zoyothemes.com/blogezy/single-post2.html" title="">15 Best Healthy and
+                            <h6><a href="http://zoyothemes.com/blogezy/single-post2.html" title="" th:text="${post.title}">15 Best Healthy and
                                 Easy Salad Recipes</a></h6>
-                            <p class="post-date">August 12, 2017</p>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-sm-4">
-                    <article class="related-post">
-                        <div class="post-preview">
-                            <a href="http://zoyothemes.com/blogezy/blog-single.html"><img src="images/blog/blog-3.jpg"
-                                                                                          alt=""
-                                                                                          class="img-fluid rounded"></a>
-                        </div>
-
-                        <div class="post-header">
-                            <h6><a href="http://zoyothemes.com/blogezy/single-post2.html" title="">The planet doesn’t
-                                need saving. We do.</a></h6>
-                            <p class="post-date">August 17, 2017</p>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-sm-4">
-                    <article class="related-post">
-                        <div class="post-preview">
-                            <a href="http://zoyothemes.com/blogezy/blog-single.html"><img src="images/blog/blog-4.jpg"
-                                                                                          alt=""
-                                                                                          class="img-fluid rounded"></a>
-                        </div>
-
-                        <div class="post-header">
-                            <h6><a href="http://zoyothemes.com/blogezy/single-post2.html" title="">Modern City With
-                                Amazing Dark Blue Sea</a></h6>
-                            <p class="post-date">August 20, 2017</p>
+                            <p class="post-date" th:text="${#dates.format(post.createdAt, 'dd.MMM.yyyy')}">August 12, 2017</p>
                         </div>
                     </article>
                 </div>

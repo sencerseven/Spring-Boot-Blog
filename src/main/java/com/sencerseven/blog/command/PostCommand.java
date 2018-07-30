@@ -40,4 +40,6 @@ public class PostCommand {
 
     private List<CommentCommand> comment = new ArrayList<>();
 
+    private String Tags;
+
 }

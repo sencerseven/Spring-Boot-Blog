@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class PostCommandToPostConverter implements Converter<PostCommand,Post> {
 
@@ -42,6 +44,20 @@ public class PostCommandToPostConverter implements Converter<PostCommand,Post> {
         post.setDescription(postCommand.getDescription());
         post.setText(postCommand.getText());
         post.setUrl(blogHelpers.toSlug(postCommand.getTitle()));
+        post.setTags(postCommand.getTags());
+
+        if(postCommand.getId() != null){
+            Optional<Post> tempPost = postRepository.findById(postCommand.getId());
+
+            if(tempPost.isPresent()){
+                if(postCommand.getMultipartFile() == null){
+                    post.setImageUrl(tempPost.get().getImageUrl());
+                }
+                if(postCommand.getCreatedAt() == null){
+                    post.setCreatedAt(tempPost.get().getCreatedAt());
+                }
+            }
+        }
 
         if(postCommand.getCategory() != null)
             post.setCategory(categoryCommandToCategoryConverter.convert(postCommand.getCategory()));
@@ -53,11 +69,7 @@ public class PostCommandToPostConverter implements Converter<PostCommand,Post> {
 
             post.setImageUrl(s3Services.uploadFile(postCommand.getMultipartFile().getOriginalFilename(),
                     "posts",postCommand.getMultipartFile()));
-        }else{
-            post.setImageUrl(postRepository.findById(postCommand.getId()).get().getImageUrl());
-
         }
-
         return post;
 
     }

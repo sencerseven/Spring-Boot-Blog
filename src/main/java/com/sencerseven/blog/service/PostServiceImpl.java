@@ -1,5 +1,6 @@
 package com.sencerseven.blog.service;
 
+import com.sencerseven.blog.command.CategoryCommand;
 import com.sencerseven.blog.command.PostCommand;
 import com.sencerseven.blog.command.UsersCommand;
 import com.sencerseven.blog.converter.PostCommandToPostConverter;
@@ -9,17 +10,21 @@ import com.sencerseven.blog.domain.Post;
 import com.sencerseven.blog.exception.NotFoundPostInCategoryException;
 import com.sencerseven.blog.exception.NotFoundSearchException;
 import com.sencerseven.blog.repository.PostRepository;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 
 @Service
 public class PostServiceImpl implements PostService {
+
 
     PostRepository postRepository;
 
@@ -91,15 +96,18 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<Post> findPostsByCategory(int page, int size, String column, Sort.Direction direction,Category category) {
+    public Page<PostCommand> findPostsByCategory(int page, int size, String column, Sort.Direction direction,Category category) {
         Page<Post> posts = postRepository.findPostsByCategory(PageRequest.of(page,size,direction,column),category);
             if(posts.getContent().size() == 0)
                 throw new NotFoundPostInCategoryException(category.getName());
-        return posts;
+
+            List<PostCommand> postCommands = posts.getContent().stream().map(post -> postToPostCommandConverter.convert(post)).collect(Collectors.toList());
+
+        return new PageImpl<>(postCommands,PageRequest.of(page,size),posts.getTotalElements());
     }
 
     @Override
-    public Page<Post> findPostByTitleContaining(int page, int size, String column, Sort.Direction direction, String containing) {
+    public Page<PostCommand> findPostByTitleContaining(int page, int size, String column, Sort.Direction direction, String containing) {
 
 
         Page<Post> posts = postRepository.findPostByTitleContaining(PageRequest.of(page,size,direction,column),containing);
@@ -107,12 +115,28 @@ public class PostServiceImpl implements PostService {
         if(posts.getContent().size() == 0)
             throw new NotFoundSearchException(containing);
 
-        return posts;
+        List<PostCommand> postCommandList = posts.getContent().stream().map(post -> postToPostCommandConverter.convert(post)).collect(Collectors.toList());
+
+        return new PageImpl<>(postCommandList,PageRequest.of(page,size),posts.getTotalElements());
 
     }
 
     @Override
+    public Page<PostCommand> findPostByTagsContaining(int page, int size, String column, Sort.Direction direction, String containing) {
+        Page<Post> posts = postRepository.findPostByTagsContaining(PageRequest.of(page,size,direction,column),containing);
+
+        if(posts.getContent().size() == 0)
+            throw new NotFoundSearchException(containing);
+
+        List<PostCommand> postCommandList = posts.getContent().stream().map(post -> postToPostCommandConverter.convert(post)).collect(Collectors.toList());
+
+        return new PageImpl<>(postCommandList,PageRequest.of(page,size),posts.getTotalElements());
+    }
+
+    @Override
     public PostCommand savePostsCommand(PostCommand postCommand, UsersCommand usersCommand) {
+
+
         if(postCommand == null ||usersCommand == null)
             return null;
 
@@ -131,6 +155,16 @@ public class PostServiceImpl implements PostService {
 
 
 
+
+    }
+
+    @Override
+    public List<PostCommand> findPostRand(int page, int size, String column, Sort.Direction direction,Post tempPost) {
+        double count = (double)postRepository.count();
+        int id= (int)Math.ceil(count / size);
+
+        int random = new Random().nextInt(id);
+        return postRepository.findPostsByCategoryAndIdNot(PageRequest.of(random,size,direction,column),tempPost.getCategory(),tempPost.getId()).getContent().stream().map(post -> postToPostCommandConverter.convert(post)).collect(Collectors.toList());
 
     }
 

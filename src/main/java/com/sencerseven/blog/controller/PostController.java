@@ -52,6 +52,7 @@ public class PostController {
         List<Category> categoryList = categoryService.getCategoriesByActive(true);
         List<Comment> commentList = commentService.findCommentsByPostAndActive(post,1);
         List<Parameter> parameterList = parameterService.findParameterByKey("ABOUT");
+        List<PostCommand> findPostList  = postService.findPostRand(0,3,"id",Sort.Direction.DESC,post);
 
         postService.updateBy(post);
 
@@ -61,6 +62,7 @@ public class PostController {
         model.addAttribute("commentList",commentList);
         model.addAttribute("parameterList",parameterList);
         model.addAttribute("commentCommand", new CommentCommand());
+        model.addAttribute("suggessPostList", findPostList);
 
 
         return "index";
@@ -68,14 +70,17 @@ public class PostController {
 
     @RequestMapping
     public String searchAction(@RequestParam(name="category",required = false)String tmpCategory,
-                               @RequestParam(name="search",required = false)String tmpSearch,Model model){
-        Page<Post> postPage;
+                               @RequestParam(name="search",required = false)String tmpSearch,
+                               @RequestParam(name="tags",required = false)String tmpTags,Model model){
+        Page<PostCommand> postPage;
 
         if(tmpCategory != null && !tmpCategory.equals("")){
             Category category = categoryService.getCategoriesByUrl(tmpCategory);
             postPage = postService.findPostsByCategory(0,10,"id",Sort.Direction.DESC,category);
-        }else{
+        }else if (tmpSearch != null && !tmpSearch.equals("")){
             postPage = postService.findPostByTitleContaining(0,10,"id",Sort.Direction.DESC,tmpSearch);
+        }else{
+            postPage = postService.findPostByTagsContaining(0,10,"id",Sort.Direction.DESC,tmpTags);
         }
 
 
