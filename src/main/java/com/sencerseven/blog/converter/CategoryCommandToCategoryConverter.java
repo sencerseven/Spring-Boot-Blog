@@ -24,6 +24,7 @@ public class CategoryCommandToCategoryConverter implements Converter<CategoryCom
        category.setName(categoryCommand.getName());
        category.setDescription(categoryCommand.getDescription());
        category.setActive(categoryCommand.isActive());
+       if (categoryCommand.getName() != null)
        category.setUrl(blogHelpers.toSlug(categoryCommand.getName()));
 
 

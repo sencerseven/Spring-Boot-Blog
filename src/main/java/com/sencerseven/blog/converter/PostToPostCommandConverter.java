@@ -37,6 +37,7 @@ public class PostToPostCommandConverter implements Converter<Post, PostCommand> 
         postCommand.setUrl(post.getUrl());
         postCommand.setTags(post.getTags());
 
+        if(post.getImageUrl() != null)
         postCommand.setImageUrl(s3Services.getSignUrl(post.getImageUrl(),60));
 
 
