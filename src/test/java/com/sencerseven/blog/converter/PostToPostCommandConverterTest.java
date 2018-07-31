@@ -23,9 +23,12 @@ public class PostToPostCommandConverterTest {
     @Mock
     CommentToCommentCommandConverter commentToCommentCommandConverter;
 
+    @Mock
+    TagToTagCommandConverter tagToTagCommandConverter;
+
     @Before
     public void setUp() throws Exception {
-        postToPostCommandConverter = new PostToPostCommandConverter(usersToUsersCommandConverter, categoryToCategoryCommandConverter, commentToCommentCommandConverter);
+        postToPostCommandConverter = new PostToPostCommandConverter(usersToUsersCommandConverter, categoryToCategoryCommandConverter, commentToCommentCommandConverter,tagToTagCommandConverter);
     }
 
     @Test
