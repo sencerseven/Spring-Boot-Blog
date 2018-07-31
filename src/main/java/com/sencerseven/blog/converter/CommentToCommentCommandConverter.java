@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommentToCommentCommandConverter implements Converter<Comment,CommentCommand> {
 
-    CommentUserToCommentUserCommandConverter commentUserToCommentUserCommandConverter;
+    UsersDetailToUsersDetailCommandConverter usersDetailToUsersDetailCommandConverter;
 
-    public CommentToCommentCommandConverter(CommentUserToCommentUserCommandConverter commentUserToCommentUserCommandConverter) {
-        this.commentUserToCommentUserCommandConverter = commentUserToCommentUserCommandConverter;
+    public CommentToCommentCommandConverter(UsersDetailToUsersDetailCommandConverter usersDetailToUsersDetailCommandConverter) {
+        this.usersDetailToUsersDetailCommandConverter = usersDetailToUsersDetailCommandConverter;
     }
 
     @Override
@@ -24,8 +24,8 @@ public class CommentToCommentCommandConverter implements Converter<Comment,Comme
         commentCommand.setText(comment.getText());
         commentCommand.setType(comment.getType());
 
-        if(comment.getCommentUser() != null)
-            commentCommand.setCommentUserCommand(commentUserToCommentUserCommandConverter.convert(comment.getCommentUser()));
+        if(comment.getUsersDetail() != null)
+            commentCommand.setUsersDetailCommand(usersDetailToUsersDetailCommandConverter.convert(comment.getUsersDetail()));
 
         return commentCommand;
     }

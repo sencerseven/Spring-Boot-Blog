@@ -17,13 +17,9 @@ public class UsersCommand implements Serializable {
 
     private Long id;
 
-    private String email;
-
     private String password;
 
     private String userName;
-
-    private String lastName;
 
     private int active;
 
@@ -33,10 +29,8 @@ public class UsersCommand implements Serializable {
 
     public UsersCommand(UsersCommand usersCommand) {
         this.id = usersCommand.getId();
-        this.email = usersCommand.getEmail();
         this.password = usersCommand.getPassword();
         this.userName = usersCommand.getUserName();
-        this.lastName = usersCommand.getLastName();
         this.active = usersCommand.getActive();
         this.usersDetail = usersCommand.getUsersDetail();
         this.roles = usersCommand.getRoles();

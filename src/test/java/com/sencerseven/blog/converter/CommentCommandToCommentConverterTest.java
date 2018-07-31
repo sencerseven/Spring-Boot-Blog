@@ -18,12 +18,12 @@ public class CommentCommandToCommentConverterTest {
     CommentCommandToCommentConverter commentCommandToCommentConverter;
 
     @Mock
-    CommentUserCommandToCommentUserConverter commentUserCommandToCommentUserConverter;
+    UsersDetailCommandToUsersDetailConverter usersDetailCommandToUsersDetailConverter;
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        commentCommandToCommentConverter = new CommentCommandToCommentConverter(commentUserCommandToCommentUserConverter);
+        commentCommandToCommentConverter = new CommentCommandToCommentConverter(usersDetailCommandToUsersDetailConverter);
     }
 
     @Test

@@ -16,6 +16,9 @@ public class UsersDetailCommandToUsersDetailConverter implements Converter<Users
         UsersDetail usersDetail = new UsersDetail();
         usersDetail.setId(usersDetailCommand.getId());
         usersDetail.setDescription(usersDetailCommand.getDescription());
+        usersDetail.setEmail(usersDetailCommand.getEmail());
+        usersDetail.setFirstName(usersDetailCommand.getFirstName());
+        usersDetail.setLastName(usersDetailCommand.getLastName());
 
         return usersDetail;
 

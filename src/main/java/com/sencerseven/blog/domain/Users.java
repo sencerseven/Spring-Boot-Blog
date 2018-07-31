@@ -21,13 +21,9 @@ public class Users implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
-
     private String password;
 
     private String userName;
-
-    private String lastName;
 
     private int active;
 
@@ -39,23 +35,17 @@ public class Users implements Serializable {
     private Set<Role> role = new HashSet<>();
 
     @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
-    private Set<Comment> comment = new HashSet<>();
-
-    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY)
     private Set<Post> postSet = new HashSet<>();
 
     public Users() {
     }
 
-    public Users(String email, String password, String userName, String lastName, int active, UsersDetail usersDetail, Set<Role> role, Set<Comment> comment, Set<Post> postSet) {
-        this.email = email;
+    public Users(String password, String userName, int active, UsersDetail usersDetail, Set<Role> role, Set<Post> postSet) {
         this.password = password;
         this.userName = userName;
-        this.lastName = lastName;
         this.active = active;
         this.usersDetail = usersDetail;
         this.role = role;
-        this.comment = comment;
         this.postSet = postSet;
     }
 }

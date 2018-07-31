@@ -14,4 +14,10 @@ public class UsersDetailCommand {
     private String description;
 
     private String profileImg;
+
+    private String firstName;
+
+    private String lastName;
+
+    private String email;
 }

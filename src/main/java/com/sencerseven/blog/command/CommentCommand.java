@@ -15,5 +15,5 @@ public class CommentCommand {
 
     private String type;
 
-    CommentUserCommand commentUserCommand;
+    UsersDetailCommand usersDetailCommand;
 }

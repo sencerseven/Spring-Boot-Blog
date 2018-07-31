@@ -24,9 +24,7 @@ public class UsersCommandToUsersConverter implements Converter<UsersCommand,User
         Users users = new Users();
         users.setId(usersCommand.getId());
         users.setUserName(usersCommand.getUserName());
-        users.setLastName(usersCommand.getLastName());
         users.setPassword(usersCommand.getPassword());
-        users.setEmail(usersCommand.getEmail());
         users.setActive(usersCommand.getActive());
 
         if(usersCommand.getRoles() != null && usersCommand.getRoles().size() >0 )

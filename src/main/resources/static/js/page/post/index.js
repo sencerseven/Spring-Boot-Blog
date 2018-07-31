@@ -10,13 +10,13 @@ $(document).ready(function() {
             e.stopPropagation();
 
             var item = {
-                commentUserCommand : {}
+                usersDetailCommand : {}
             };
 
             $.each($form.serializeArray(), function() {
                 var split = this.name.split('.');
                 if(split[1] != null)
-                    item.commentUserCommand[split[1]] = this.value;
+                    item.usersDetailCommand[split[1]] = this.value;
                 else
                     item[this.name] = this.value;
 
