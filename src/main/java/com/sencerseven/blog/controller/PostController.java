@@ -3,16 +3,14 @@ package com.sencerseven.blog.controller;
 import com.sencerseven.blog.command.CommentCommand;
 import com.sencerseven.blog.command.CommentUserCommand;
 import com.sencerseven.blog.command.PostCommand;
+import com.sencerseven.blog.command.TagCommand;
 import com.sencerseven.blog.converter.PostToPostCommandConverter;
 import com.sencerseven.blog.domain.Category;
 import com.sencerseven.blog.domain.Comment;
 import com.sencerseven.blog.domain.Parameter;
 import com.sencerseven.blog.domain.Post;
 import com.sencerseven.blog.model.JsonResponder;
-import com.sencerseven.blog.service.CategoryService;
-import com.sencerseven.blog.service.CommentService;
-import com.sencerseven.blog.service.ParameterService;
-import com.sencerseven.blog.service.PostService;
+import com.sencerseven.blog.service.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -34,13 +32,15 @@ public class PostController {
     CommentService commentService;
     ParameterService parameterService;
     PostToPostCommandConverter postToPostCommandConverter;
+    TagService tagService;
 
-    public PostController(PostService postService, CategoryService categoryService, CommentService commentService, ParameterService parameterService, PostToPostCommandConverter postToPostCommandConverter) {
+    public PostController(PostService postService, CategoryService categoryService, CommentService commentService, ParameterService parameterService, PostToPostCommandConverter postToPostCommandConverter, TagService tagService) {
         this.postService = postService;
         this.categoryService = categoryService;
         this.commentService = commentService;
         this.parameterService = parameterService;
         this.postToPostCommandConverter = postToPostCommandConverter;
+        this.tagService = tagService;
     }
 
     @GetMapping(value = "{url}")
@@ -53,7 +53,7 @@ public class PostController {
         List<Comment> commentList = commentService.findCommentsByPostAndActive(post,1);
         List<Parameter> parameterList = parameterService.findParameterByKey("ABOUT");
         List<PostCommand> findPostList  = postService.findPostRand(0,3,"id",Sort.Direction.DESC,post);
-
+        List<TagCommand> tagCommands = tagService.findAll();
         postService.updateBy(post);
 
         model.addAttribute("post", postCommand);
@@ -63,6 +63,7 @@ public class PostController {
         model.addAttribute("parameterList",parameterList);
         model.addAttribute("commentCommand", new CommentCommand());
         model.addAttribute("suggessPostList", findPostList);
+        model.addAttribute("tagCommands",tagCommands);
 
 
         return "index";

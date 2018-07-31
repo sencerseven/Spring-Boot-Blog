@@ -1,12 +1,14 @@
 package com.sencerseven.blog.controller;
 
 import com.sencerseven.blog.command.PostCommand;
+import com.sencerseven.blog.command.TagCommand;
 import com.sencerseven.blog.domain.Category;
 import com.sencerseven.blog.domain.Parameter;
 import com.sencerseven.blog.domain.Post;
 import com.sencerseven.blog.service.CategoryService;
 import com.sencerseven.blog.service.ParameterService;
 import com.sencerseven.blog.service.PostService;
+import com.sencerseven.blog.service.TagService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -23,12 +25,15 @@ public class IndexController {
     PostService postService;
     CategoryService categoryService;
     ParameterService parameterService;
+    TagService tagService;
 
-    public IndexController(PostService postService, CategoryService categoryService, ParameterService parameterService) {
+    public IndexController(PostService postService, CategoryService categoryService, ParameterService parameterService, TagService tagService) {
         this.postService = postService;
         this.categoryService = categoryService;
         this.parameterService = parameterService;
+        this.tagService = tagService;
     }
+
 
     @RequestMapping(value = {"", "/"})
     public String indexAction(Model model) {
@@ -37,6 +42,7 @@ public class IndexController {
        List<Category> categoryList = categoryService.getCategoriesByActive(true);
         List<PostCommand> populerList = postService.getPopulerPost(0,3,"view",Sort.Direction.DESC);
         List<Parameter> parameterList = parameterService.findParameterByKey("ABOUT");
+        List<TagCommand> tagCommands = tagService.findAll();
 
 
 
@@ -44,6 +50,7 @@ public class IndexController {
        model.addAttribute("categories",categoryList);
         model.addAttribute("parameterList",parameterList);
         model.addAttribute("populerPost",populerList);
+        model.addAttribute("tagCommands",tagCommands);
 
         return "index";
     }
