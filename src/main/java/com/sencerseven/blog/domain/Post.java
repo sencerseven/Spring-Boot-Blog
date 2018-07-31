@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Getter
 @Setter
-@EqualsAndHashCode(exclude = {"category","comment"})
+@EqualsAndHashCode(exclude = {"category","comment","tags"})
 @Entity
 public class Post {
 
@@ -30,7 +30,6 @@ public class Post {
 
     private String imageUrl;
 
-    private String tags;
 
     @ManyToOne
     private Category category;
@@ -44,12 +43,24 @@ public class Post {
     @OneToMany(mappedBy = "post",fetch = FetchType.LAZY)
     private Set<Comment> comment = new HashSet<>();
 
+    @ManyToMany(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinTable(name = "POST_TAG"
+        ,joinColumns = @JoinColumn(name = "post_id")
+        ,inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private Set<Tag> tags= new HashSet<>();
+
     @Column(columnDefinition = "int default 0")
     private int view;
 
     public Post addCategory(Category category){
         category.getPosts().add(this);
         this.category = category;
+        return this;
+    }
+
+    public Post addTags(Tag tag){
+        tag.getPosts().add(this);
+        this.tags.add(tag);
         return this;
     }
 
