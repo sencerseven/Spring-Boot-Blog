@@ -33,11 +33,18 @@ public class Comment {
 
     private String type;
 
+    @Column(columnDefinition = "boolean default false",nullable = false)
+    private boolean read;
+
     public Comment addUsersDetail(UsersDetail usersDetail) {
         usersDetail.getComment().add(this);
         this.usersDetail = usersDetail;
         return this;
     }
 
+    @PrePersist
+    protected void onCreate() {
+        if (createdAt == null) { createdAt = new Date(); }
+    }
 
 }
