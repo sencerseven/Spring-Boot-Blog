@@ -17,7 +17,7 @@
         <div class="blog-detail-description">
 
             <div class="mt-5">
-                <h5 class="page-title-alt"><span>Leave a reply</span></h5>
+                <h5 class="page-title-alt"><span>İletişim</span></h5>
             </div>
 
             <form action="/contact/add" method="post" class="mt-4" id="commentForm" th:object="${commentCommand}">
@@ -37,7 +37,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <input id="subject" class="form-control" placeholder="E-posta" name="subject" th:field="*{usersDetailCommand.email}" type="text">
+                            <input id="subject" class="form-control" placeholder="E-posta" name="subject" th:field="*{usersDetailCommand.email}" type="text" required="">
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="form-group">
-                            <textarea id="comment" class="form-control" rows="5" placeholder="Your Message*" name="comment" th:field="*{text}" required=""></textarea>
+                            <textarea id="comment" class="form-control" rows="5" placeholder="Mesajınız*" name="comment" th:field="*{text}" required=""></textarea>
                         </div>
                     </div>
                 </div>

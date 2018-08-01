@@ -1,8 +1,13 @@
 package com.sencerseven.blog.controller;
 
 import com.sencerseven.blog.command.CommentCommand;
+import com.sencerseven.blog.command.PostCommand;
+import com.sencerseven.blog.command.TagCommand;
+import com.sencerseven.blog.domain.Category;
+import com.sencerseven.blog.domain.Parameter;
 import com.sencerseven.blog.model.JsonResponder;
-import com.sencerseven.blog.service.CommentService;
+import com.sencerseven.blog.service.*;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,20 +19,38 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.Valid;
 import java.awt.*;
+import java.util.List;
 
 @Controller
 public class ContactController {
 
     CommentService commentService;
+    TagService tagService;
+    PostService postService;
+    CategoryService categoryService;
+    ParameterService parameterService;
 
-    public ContactController(CommentService commentService) {
+    public ContactController(CommentService commentService, TagService tagService, PostService postService, CategoryService categoryService, ParameterService parameterService) {
         this.commentService = commentService;
+        this.tagService = tagService;
+        this.postService = postService;
+        this.categoryService = categoryService;
+        this.parameterService = parameterService;
     }
 
     @RequestMapping("/contact")
     public String indexAction(Model model){
 
+        List<TagCommand> tagCommands = tagService.findAll();
+        List<PostCommand> populerList = postService.getPopulerPost(0,3,"view",Sort.Direction.DESC);
+        List<Category> categoryList = categoryService.getCategoriesByActive(true);
+        List<Parameter> parameterList = parameterService.findParameterByKey("ABOUT");
+
         model.addAttribute("commentCommand",new CommentCommand());
+        model.addAttribute("tagCommands",tagCommands);
+        model.addAttribute("populerPost",populerList);
+        model.addAttribute("categories",categoryList);
+        model.addAttribute("parameterList",parameterList);
 
 
         return "index";
