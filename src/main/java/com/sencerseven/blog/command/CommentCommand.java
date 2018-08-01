@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,6 +16,10 @@ public class CommentCommand {
     private String text;
 
     private String type;
+
+    private boolean read;
+
+    private Date createdAt;
 
     UsersDetailCommand usersDetailCommand;
 }

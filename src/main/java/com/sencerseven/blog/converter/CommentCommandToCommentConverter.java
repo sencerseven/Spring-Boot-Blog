@@ -1,7 +1,6 @@
 package com.sencerseven.blog.converter;
 
 import com.sencerseven.blog.command.CommentCommand;
-import com.sencerseven.blog.command.CommentUserCommand;
 import com.sencerseven.blog.domain.Comment;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -25,7 +24,8 @@ public class CommentCommandToCommentConverter implements Converter<CommentComman
         comment.setId(commentCommand.getId());
         comment.setText(commentCommand.getText());
         comment.setType(commentCommand.getType());
-
+        comment.setRead(commentCommand.isRead());
+        comment.setCreatedAt(commentCommand.getCreatedAt());
         if(commentCommand.getUsersDetailCommand() != null)
             comment.addUsersDetail(usersDetailCommandToUsersDetailConverter.convert(commentCommand.getUsersDetailCommand()));
 
