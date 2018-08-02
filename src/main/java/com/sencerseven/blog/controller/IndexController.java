@@ -23,34 +23,22 @@ import java.util.List;
 public class IndexController {
 
     PostService postService;
-    CategoryService categoryService;
-    ParameterService parameterService;
-    TagService tagService;
 
-    public IndexController(PostService postService, CategoryService categoryService, ParameterService parameterService, TagService tagService) {
+
+    public IndexController(PostService postService) {
         this.postService = postService;
-        this.categoryService = categoryService;
-        this.parameterService = parameterService;
-        this.tagService = tagService;
     }
-
 
     @RequestMapping(value = {"", "/"})
     public String indexAction(Model model) {
 
        Page<PostCommand> postPage = postService.findPostsBy(0,10,"id", Sort.Direction.DESC);
-       List<Category> categoryList = categoryService.getCategoriesByActive(true);
-        List<PostCommand> populerList = postService.getPopulerPost(0,3,"view",Sort.Direction.DESC);
-        List<Parameter> parameterList = parameterService.findParameterByKey("ABOUT");
-        List<TagCommand> tagCommands = tagService.findAll();
+
 
 
 
        model.addAttribute("posts",postPage);
-       model.addAttribute("categories",categoryList);
-        model.addAttribute("parameterList",parameterList);
-        model.addAttribute("populerPost",populerList);
-        model.addAttribute("tagCommands",tagCommands);
+
 
         return "index";
     }

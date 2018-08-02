@@ -19,6 +19,8 @@ public class Comment {
 
     private String text;
 
+    private String title;
+
     @Temporal(TemporalType.DATE)
     private Date createdAt;
 

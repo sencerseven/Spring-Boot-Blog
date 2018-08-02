@@ -19,10 +19,10 @@
 
         <aside class="widget about-widget">
             <div class="widget-title">Hakkımda</div>
-            <div class="text-center" th:each="parameter : ${parameterList}">
+            <div class="text-center">
                 <img src="images/photo.jpg" th:src="@{/images/photo.jpg}" alt="Hakkımda" class="rounded-circle">
 
-                <p th:text="${parameter.value}">Quis vero phasellus hac nullam, in quam vitae duis adipiscing mauris leo, laoreet eget at quis, ante vestibulum vivamus vel. Sapien lobortis, eget orci purus amet pede, consectetur neque risus.</p>
+                <p th:text="${parameterList.get('ABOUT')}">Quis vero phasellus hac nullam, in quam vitae duis adipiscing mauris leo, laoreet eget at quis, ante vestibulum vivamus vel. Sapien lobortis, eget orci purus amet pede, consectetur neque risus.</p>
             </div>
 
         </aside>

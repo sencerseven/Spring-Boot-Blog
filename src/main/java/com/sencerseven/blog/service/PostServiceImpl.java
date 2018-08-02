@@ -123,7 +123,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<PostCommand> findPostByTagsContaining(int page, int size, String column, Sort.Direction direction, String containing) {
-        Page<Post> posts = postRepository.findPostByTagsContaining(PageRequest.of(page,size,direction,column),containing);
+        Page<Post> posts = postRepository.findPostsByTagsContains(PageRequest.of(page,size,direction,column),containing);
 
         if(posts.getContent().size() == 0)
             throw new NotFoundSearchException(containing);

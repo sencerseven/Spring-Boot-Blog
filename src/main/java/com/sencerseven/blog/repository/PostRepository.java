@@ -5,10 +5,12 @@ import com.sencerseven.blog.domain.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface PostRepository extends JpaRepository<Post,Long> {
+public interface PostRepository extends JpaRepository<Post, Long> {
 
     Page<Post> findPostsBy(Pageable pageable);
 
@@ -17,11 +19,12 @@ public interface PostRepository extends JpaRepository<Post,Long> {
 
     Page<Post> findPostsByCategory(Pageable pageable, Category category);
 
-    Page<Post> findPostByTitleContaining(Pageable pageable,String containing);
+    Page<Post> findPostByTitleContaining(Pageable pageable, String containing);
 
 
-    Page<Post> findPostByTagsContaining(Pageable pageable,String containing);
+    @Query("Select p from Post p INNER JOIN p.tags t where t.tagName =:tag")
+    Page<Post> findPostsByTagsContains(Pageable pageable, @Param("tag") String containing);
 
-    Page<Post> findPostsByCategoryAndIdNot(Pageable pageable, Category category,Long id);
+    Page<Post> findPostsByCategoryAndIdNot(Pageable pageable, Category category, Long id);
 
 }

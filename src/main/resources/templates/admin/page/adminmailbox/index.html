@@ -45,7 +45,7 @@
                                                         <input type="checkbox" id="chk1">
                                                         <label class="toggle" for="chk1"></label>
                                                     </div>
-                                                    <p class="title" th:text="${comment.usersDetailCommand.getEmail()}">Lucas Kriebel (via Twitter)</p><span class="star-toggle fa fa-star-o"></span>
+                                                    <p class="title" th:text="${comment.title}">Lucas Kriebel (via Twitter)</p><span class="star-toggle fa fa-star-o"></span>
                                                 </div>
                                                 <div class="col-mail col-mail-2">
                                                     <div class="subject"><span th:text="${comment.usersDetailCommand.getFirstName() + ' ' +comment.usersDetailCommand.getLastName()} ">Lucas Kriebel</span> sana <span th:text="${comment.type}"></span> sayfasından mesaj gönderdi

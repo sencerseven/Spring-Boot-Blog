@@ -15,6 +15,8 @@ public class CommentCommand {
 
     private String text;
 
+    private String title;
+
     private String type;
 
     private boolean read;
