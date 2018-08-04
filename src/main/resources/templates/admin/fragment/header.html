@@ -1,3 +1,14 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
 <div class="header">
     <nav class="navbar top-navbar navbar-expand-md navbar-light">
         <!-- Logo -->
@@ -190,7 +201,7 @@
                             <li><a href="#"><i class="ti-wallet"></i> Balance</a></li>
                             <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                             <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
-                            <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
+                            <li><a href="#" th:href="@{/logout}"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
                     </div>
                 </li>
@@ -198,3 +209,6 @@
         </div>
     </nav>
 </div>
+
+</body>
+</html>

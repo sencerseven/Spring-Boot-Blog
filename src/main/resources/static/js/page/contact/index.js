@@ -32,6 +32,8 @@ $(document).ready(function() {
                     'Mesajınız Tarafımıza iletilmiştir',
                         'success');
 
+                    $("form :input[class='form-control']").val('');
+
                    $(this).closest('form').find(".form-control").val("");
                 }
 

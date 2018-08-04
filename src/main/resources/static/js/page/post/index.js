@@ -32,12 +32,12 @@ $(document).ready(function() {
                 data:JSON.stringify(item),
                 success: function (data) {
 
-                    swal({
-                        title: '<h4>Yorumunuz onaylandıktan sonra gözükecektir..</h4>',
-                        width: 600,
-                        padding: '3em',
-                        background: '#fff url(/images/trees.png)',
-                        backdrop: 'rgba(0,0,123,0.4) url("/images/nyan-cat.gif") center left no-repeat'});
+                    swal('Teşekkürler',
+                        'Yorumunuz Onaylandıktan Sonra Görüntülenecektir.',
+                        'success');
+
+
+                    $("form :input[class='form-control']").val('');
 
                    /** $("#comment").val("");
                     var yorumCount = parseInt($("#yorumlarCount").text());
