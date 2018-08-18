@@ -19,7 +19,7 @@ public class CommentCommand {
 
     private String type;
 
-    private boolean read;
+    private boolean read = false;
 
     private Date createdAt;
 

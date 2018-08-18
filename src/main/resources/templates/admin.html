@@ -12,6 +12,9 @@
     <!-- Font Awesome7 -->
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"
           th:href="@{/bower_components/font-awesome/css/font-awesome.min.css}">
+    <!-- Font Awesome7 -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"
+          th:href="@{/css/adminstyle.css}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css"
           th:href="@{/bower_components/Ionicons/css/ionicons.min.css}">
@@ -41,6 +44,15 @@
     <!-- jQuery 3 -->
     <script src="bower_components/jquery/dist/jquery.min.js"
             th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="bower_components/jquery-ui/jquery-ui.min.js"
+            th:src="@{/bower_components/jquery-ui/jquery-ui.min.js}"></script>
+
+    <script src="http://malsup.github.com/jquery.form.js"></script>
+
+
+    <script src="dist/js/demo.js"
+            th:src="@{/js/helper.js}"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -87,12 +99,7 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"
-        th:src="@{/bower_components/jquery/dist/jquery.min.js}"></script>
-<!-- jQuery UI 1.11.4 -->
-<script src="bower_components/jquery-ui/jquery-ui.min.js"
-        th:src="@{/bower_components/jquery-ui/jquery-ui.min.js}"></script>
+
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button);
@@ -140,5 +147,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"
         th:src="@{/js/demo.js}"></script>
+
+<script src="dist/js/demo.js"
+        th:src="@{${js}}"></script>
 </body>
 </html>

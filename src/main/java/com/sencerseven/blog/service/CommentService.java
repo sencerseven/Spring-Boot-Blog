@@ -20,4 +20,6 @@ public interface CommentService {
     CommentCommand findById(Long id);
 
     Long countAllByReadAndType(boolean read, String type);
+
+    List<CommentCommand> findAll(CommentCommand commentCommand);
 }

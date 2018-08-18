@@ -6,6 +6,9 @@ import com.sencerseven.blog.converter.CommentToCommentCommandConverter;
 import com.sencerseven.blog.domain.Comment;
 import com.sencerseven.blog.domain.Post;
 import com.sencerseven.blog.repository.CommentRepository;
+import com.sencerseven.blog.service.specification.CommentCommandSpecification;
+import com.sun.xml.internal.rngom.ast.builder.CommentList;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -22,11 +25,13 @@ public class CommentServiceImpl implements CommentService {
 
     CommentCommandToCommentConverter commentCommandToCommentConverter;
     CommentToCommentCommandConverter commentToCommentCommandConverter;
+    CommentCommandSpecification commentCommandSpecification;
 
-    public CommentServiceImpl(CommentRepository commentRepository, CommentCommandToCommentConverter commentCommandToCommentConverter, CommentToCommentCommandConverter commentToCommentCommandConverter) {
+    public CommentServiceImpl(CommentRepository commentRepository, CommentCommandToCommentConverter commentCommandToCommentConverter, CommentToCommentCommandConverter commentToCommentCommandConverter, CommentCommandSpecification commentCommandSpecification) {
         this.commentRepository = commentRepository;
         this.commentCommandToCommentConverter = commentCommandToCommentConverter;
         this.commentToCommentCommandConverter = commentToCommentCommandConverter;
+        this.commentCommandSpecification = commentCommandSpecification;
     }
 
     @Transactional
@@ -76,5 +81,12 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public Long countAllByReadAndType(boolean read, String type) {
         return commentRepository.countAllByReadAndType(read,type);
+    }
+
+    @Override
+    public List<CommentCommand> findAll(CommentCommand commentCommand) {
+       Page<Comment> comment = commentRepository.findAll(commentCommandSpecification.getFilter(commentCommand),PageRequest.of(0,10,Sort.Direction.DESC,"id"));
+
+       return comment.getContent().stream().map(commentToCommentCommandConverter::convert).collect(Collectors.toList());
     }
 }
