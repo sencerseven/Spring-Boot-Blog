@@ -19,9 +19,13 @@ public class CommentCommand {
 
     private String type;
 
+    private int active = 0;
+
     private boolean read = false;
 
     private Date createdAt;
 
     UsersDetailCommand usersDetailCommand;
+
+    PostCommand postCommand;
 }

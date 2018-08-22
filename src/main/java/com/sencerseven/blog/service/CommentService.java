@@ -19,7 +19,11 @@ public interface CommentService {
 
     CommentCommand findById(Long id);
 
+    Comment getById(Long id);
+
     Long countAllByReadAndType(boolean read, String type);
 
-    List<CommentCommand> findAll(CommentCommand commentCommand);
+    List<CommentCommand> findAll(CommentCommand commentCommand,String type);
+
+    Comment saveOrUpdate(Comment comment);
 }

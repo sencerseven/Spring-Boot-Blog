@@ -3,6 +3,7 @@ package com.sencerseven.blog.interceptor;
 
 import com.sencerseven.blog.command.PostCommand;
 import com.sencerseven.blog.command.TagCommand;
+import com.sencerseven.blog.command.UsersCommand;
 import com.sencerseven.blog.domain.Category;
 import com.sencerseven.blog.domain.Parameter;
 import com.sencerseven.blog.service.CategoryService;
@@ -10,6 +11,9 @@ import com.sencerseven.blog.service.ParameterService;
 import com.sencerseven.blog.service.PostService;
 import com.sencerseven.blog.service.TagService;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -34,12 +38,16 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
     ParameterService parameterService;
     TagService tagService;
 
+
     public BaseInterceptor(PostService postService, CategoryService categoryService, ParameterService parameterService, TagService tagService) {
         this.postService = postService;
         this.categoryService = categoryService;
         this.parameterService = parameterService;
         this.tagService = tagService;
+
     }
+
+
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
@@ -88,6 +96,7 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
                 modelAndView.addObject("populerPost",populerList);
                 modelAndView.addObject("tagCommands",tagCommands);
 
+
             }
 
             modelAndView.addObject("view",viewUrl);
@@ -96,17 +105,19 @@ public class BaseInterceptor extends HandlerInterceptorAdapter {
             modelAndView.addObject("controllerName",controllerName);
             modelAndView.addObject("actionName",actionName);
 
-           /* UsersCommand users = null;
+            UsersCommand users = null;
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             if(authentication != null && authentication.isAuthenticated()){
                 Object principal = authentication.getPrincipal();
                 if(principal instanceof UsersCommand){
                     users = (UsersCommand) principal;
+                }else{
+                    users = new UsersCommand();
                 }
             }
 
             modelAndView.addObject("currentUser",users);
-            */
+
 
         }
 

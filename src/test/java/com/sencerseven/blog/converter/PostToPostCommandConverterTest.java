@@ -28,7 +28,7 @@ public class PostToPostCommandConverterTest {
 
     @Before
     public void setUp() throws Exception {
-        postToPostCommandConverter = new PostToPostCommandConverter(usersToUsersCommandConverter, categoryToCategoryCommandConverter, commentToCommentCommandConverter,tagToTagCommandConverter);
+        postToPostCommandConverter = new PostToPostCommandConverter(usersToUsersCommandConverter, categoryToCategoryCommandConverter,tagToTagCommandConverter);
     }
 
     @Test

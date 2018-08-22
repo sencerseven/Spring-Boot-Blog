@@ -18,6 +18,7 @@ public class CommentToCommentCommandConverterTest {
     @Mock
     UsersDetailToUsersDetailCommandConverter usersDetailToUsersDetailCommandConverter;
 
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);

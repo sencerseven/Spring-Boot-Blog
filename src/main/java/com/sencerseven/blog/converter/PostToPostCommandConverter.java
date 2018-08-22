@@ -5,6 +5,7 @@ import com.sencerseven.blog.domain.Post;
 import com.sencerseven.blog.domain.Tag;
 import com.sencerseven.blog.service.S3Services;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -21,11 +22,20 @@ public class PostToPostCommandConverter implements Converter<Post, PostCommand> 
     @Autowired
     S3Services s3Services;
 
-    public PostToPostCommandConverter(UsersToUsersCommandConverter usersToUsersCommandConverter, CategoryToCategoryCommandConverter categoryToCategoryCommandConverter, CommentToCommentCommandConverter commentToCommentCommandConverter, TagToTagCommandConverter tagToTagCommandConverter) {
+    public PostToPostCommandConverter(UsersToUsersCommandConverter usersToUsersCommandConverter, CategoryToCategoryCommandConverter categoryToCategoryCommandConverter, TagToTagCommandConverter tagToTagCommandConverter) {
         this.usersToUsersCommandConverter = usersToUsersCommandConverter;
         this.categoryToCategoryCommandConverter = categoryToCategoryCommandConverter;
-        this.commentToCommentCommandConverter = commentToCommentCommandConverter;
+
         this.tagToTagCommandConverter = tagToTagCommandConverter;
+    }
+
+    public CommentToCommentCommandConverter getCommentToCommentCommandConverter() {
+        return commentToCommentCommandConverter;
+    }
+
+    @Autowired
+    public void setCommentToCommentCommandConverter(@Lazy CommentToCommentCommandConverter commentToCommentCommandConverter) {
+        this.commentToCommentCommandConverter = commentToCommentCommandConverter;
     }
 
     @Override

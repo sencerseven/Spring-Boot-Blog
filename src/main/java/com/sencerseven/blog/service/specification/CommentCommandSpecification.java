@@ -20,7 +20,7 @@ public class CommentCommandSpecification extends BaseSpecification<Comment,Comme
             return where(
                     where(containsAttribute("text",request.getText()))
 
-            ).and(equalAttribute("read",request.isRead())
+            ).and(equalAttribute("active",request.getActive())
             ).toPredicate(root,query,cb);
         };
     }
@@ -36,9 +36,9 @@ public class CommentCommandSpecification extends BaseSpecification<Comment,Comme
         };
     }
 
-    private Specification<Comment> equalAttribute(String attribute,boolean value){
+    private Specification<Comment> equalAttribute(String attribute,int value){
         return (root,query,cb) -> {
-            if(Boolean.valueOf(value) == null){
+            if(Integer.valueOf(value) == null){
                 return null;
             }
             Predicate specification =  cb.equal(root.get(attribute),value);

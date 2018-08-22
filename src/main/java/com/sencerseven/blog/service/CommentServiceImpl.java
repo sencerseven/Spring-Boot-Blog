@@ -79,14 +79,36 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public Comment getById(Long id) {
+        Optional<Comment> commentOptional = commentRepository.findById(id);
+        if (!commentOptional.isPresent())
+            return null;
+
+        return commentOptional.get();
+
+    }
+
+    @Override
     public Long countAllByReadAndType(boolean read, String type) {
         return commentRepository.countAllByReadAndType(read,type);
     }
 
     @Override
-    public List<CommentCommand> findAll(CommentCommand commentCommand) {
+    public List<CommentCommand> findAll(CommentCommand commentCommand,String type) {
+        if(type != null)
+            commentCommand.setType(type);
+
        Page<Comment> comment = commentRepository.findAll(commentCommandSpecification.getFilter(commentCommand),PageRequest.of(0,10,Sort.Direction.DESC,"id"));
 
        return comment.getContent().stream().map(commentToCommentCommandConverter::convert).collect(Collectors.toList());
+    }
+
+    @Override
+    public Comment saveOrUpdate(Comment comment) {
+        if(comment == null )
+            return null;
+
+        Comment commentResponse = commentRepository.save(comment);
+        return commentResponse;
     }
 }
