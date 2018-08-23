@@ -19,7 +19,7 @@ public class CommentCommand {
 
     private String type;
 
-    private int active = 0;
+    private boolean active = false;
 
     private boolean read = false;
 

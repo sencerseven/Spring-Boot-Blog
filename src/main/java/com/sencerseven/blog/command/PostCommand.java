@@ -26,6 +26,8 @@ public class PostCommand {
 
     private String text;
 
+    private boolean active = true;
+
     private CategoryCommand category;
 
     private UsersCommand users;

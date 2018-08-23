@@ -55,7 +55,7 @@ public class AdminCommentController {
 
         Comment comment  =commentService.getById(id);
         if(comment != null){
-            comment.setActive((comment.getActive() == 0) ? 1 : 0);
+            comment.setActive(!comment.isActive());
 
             commentService.saveOrUpdate(comment);
 

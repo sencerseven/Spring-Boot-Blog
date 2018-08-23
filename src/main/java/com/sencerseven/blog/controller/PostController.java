@@ -43,7 +43,7 @@ public class PostController {
 
         Post post = postService.getPostByUrl(url);
         PostCommand postCommand = postToPostCommandConverter.convert(post);
-        List<Comment> commentList = commentService.findCommentsByPostAndActive(post, 1);
+        List<Comment> commentList = commentService.findCommentsByPostAndActive(post, true);
         List<PostCommand> findPostList = postService.findPostRand(0, 3, "id", Sort.Direction.DESC, post);
         postService.updateBy(post);
 

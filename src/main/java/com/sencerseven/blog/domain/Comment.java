@@ -30,8 +30,8 @@ public class Comment {
     @ManyToOne
     private Post post;
 
-    @Column(columnDefinition = "int default 0")
-    private int active;
+    @Column(columnDefinition = "boolean default false")
+    private boolean active;
 
     private String type;
 

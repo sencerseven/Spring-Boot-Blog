@@ -58,7 +58,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<Comment> findCommentsByPostAndActive(Post post, int status) {
+    public List<Comment> findCommentsByPostAndActive(Post post, boolean status) {
         return commentRepository.findCommentsByPostAndActive(post, status).stream().collect(Collectors.toList());
     }
 
@@ -110,5 +110,10 @@ public class CommentServiceImpl implements CommentService {
 
         Comment commentResponse = commentRepository.save(comment);
         return commentResponse;
+    }
+
+    @Override
+    public Long countByActiveAndType(boolean status, String type) {
+        return commentRepository.countByActiveAndType(status,type);
     }
 }

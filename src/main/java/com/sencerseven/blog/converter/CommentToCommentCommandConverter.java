@@ -35,7 +35,7 @@ public class CommentToCommentCommandConverter implements Converter<Comment,Comme
         commentCommand.setText(comment.getText());
         commentCommand.setType(comment.getType());
         commentCommand.setRead(comment.isRead());
-        commentCommand.setActive(comment.getActive());
+        commentCommand.setActive(comment.isActive());
         commentCommand.setCreatedAt(comment.getCreatedAt());
         commentCommand.setTitle(comment.getTitle());
         if(comment.getUsersDetail() != null)

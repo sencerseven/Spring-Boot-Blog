@@ -13,6 +13,8 @@ public interface CategoryService {
 
     List<Category> getCategoriesByActive(boolean status);
 
+    Long countByActive(boolean status);
+
     Category getCategoriesByUrl(String url);
 
     Set<Category> getCategories();

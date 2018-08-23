@@ -5,6 +5,7 @@ import com.sencerseven.blog.converter.PostCommandToPostConverter;
 import com.sencerseven.blog.converter.PostToPostCommandConverter;
 import com.sencerseven.blog.domain.Post;
 import com.sencerseven.blog.repository.PostRepository;
+import com.sencerseven.blog.service.specification.PostCommandSpecification;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -34,10 +35,13 @@ public class PostServiceImplTest {
     @Mock
     PostToPostCommandConverter postToPostCommandConverter;
 
+    @Mock
+    PostCommandSpecification postCommandSpecification;
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        postService = new PostServiceImpl(postRepository,postCommandToPostConverter,postToPostCommandConverter);
+        postService = new PostServiceImpl(postRepository,postCommandToPostConverter,postToPostCommandConverter,postCommandSpecification);
     }
 
     @Test

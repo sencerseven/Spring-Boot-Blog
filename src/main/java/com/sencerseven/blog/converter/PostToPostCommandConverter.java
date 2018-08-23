@@ -46,6 +46,7 @@ public class PostToPostCommandConverter implements Converter<Post, PostCommand> 
         PostCommand postCommand = new PostCommand();
         postCommand.setId(post.getId());
         postCommand.setText(post.getText());
+        postCommand.setActive(post.isActive());
         postCommand.setTitle(post.getTitle());
         postCommand.setDescription(post.getDescription());
         postCommand.setCreatedAt(post.getCreatedAt());

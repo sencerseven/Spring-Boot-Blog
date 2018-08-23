@@ -12,9 +12,11 @@ import java.util.Set;
 
 public interface CommentRepository extends JpaRepository<Comment,Long> ,JpaSpecificationExecutor<Comment> {
 
-    Set<Comment> findCommentsByPostAndActive(Post post, int status);
+    Set<Comment> findCommentsByPostAndActive(Post post, boolean status);
 
     List<Comment> findCommentsByType(Pageable pageable,String type);
 
     Long countAllByReadAndType(boolean read,String type);
+
+    Long countByActiveAndType(boolean status,String type);
 }

@@ -32,9 +32,7 @@ public class IndexController {
     @RequestMapping(value = {"", "/"})
     public String indexAction(Model model) {
 
-       Page<PostCommand> postPage = postService.findPostsBy(0,10,"id", Sort.Direction.DESC);
-
-
+       Page<PostCommand> postPage = postService.findPostSpecification(0,10,"id", Sort.Direction.DESC);
 
 
        model.addAttribute("posts",postPage);

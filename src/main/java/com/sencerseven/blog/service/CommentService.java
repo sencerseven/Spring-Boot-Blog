@@ -13,7 +13,7 @@ public interface CommentService {
 
     public CommentCommand saveCommentCommand(CommentCommand commentCommand, String type);
 
-    List<Comment> findCommentsByPostAndActive(Post post, int status);
+    List<Comment> findCommentsByPostAndActive(Post post, boolean status);
 
     List<CommentCommand> findCommentsByType(int page, int size, Sort.Direction direction,String column, String type);
 
@@ -26,4 +26,6 @@ public interface CommentService {
     List<CommentCommand> findAll(CommentCommand commentCommand,String type);
 
     Comment saveOrUpdate(Comment comment);
+
+    Long countByActiveAndType(boolean status,String type);
 }

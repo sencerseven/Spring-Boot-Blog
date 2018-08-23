@@ -30,6 +30,8 @@ public class Post {
 
     private String imageUrl;
 
+    @Column(columnDefinition = "int default true")
+    private boolean active;
 
     @ManyToOne
     private Category category;

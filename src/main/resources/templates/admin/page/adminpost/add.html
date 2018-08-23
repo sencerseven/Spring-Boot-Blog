@@ -19,7 +19,7 @@
 
     <script src="https://cdn.ckeditor.com/4.8.0/standard-all/ckeditor.js"></script>
 
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+    <link href=""
           th:href="@{/css/jquery.tag-editor.css}" rel="stylesheet">
     <script src="https://cdn.ckeditor.com/4.8.0/standard-all/ckeditor.js" th:src="@{/js/jquery.tag-editor.js}"></script>
 
@@ -81,6 +81,13 @@
                             <option th:each="category : ${categories}" th:value="${category.id}"
                                     th:text="${category.name}"></option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" data-toggle="toggle" th:checked="true == true" th:field="*{active}">
+                                Menude Gözüksünmü ?
+                            </label></div>
                     </div>
                     <div class="form-group">
                         <label for="editor1">İçerik Yazısı</label>
