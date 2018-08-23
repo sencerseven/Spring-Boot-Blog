@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
-
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="../../bower_components/select2/dist/css/select2.min.css"
+          th:href="@{/bower_components/select2/dist/css/select2.min.css}">
 
     <script src="js/lib/jquery/jquery.min.js" th:src="@{/js/lib/jquery/jquery.min.js}"></script>
     <!-- Form validation -->
@@ -15,147 +15,140 @@
     <script src="js/lib/form-validation/jquery.validate-init.js"
             th:src="@{/js/lib/form-validation/jquery.validate-init.js}"></script>
 
-
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
     <script src="https://cdn.ckeditor.com/4.8.0/standard-all/ckeditor.js"></script>
 
-
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" th:href="@{/css/jquery.tag-editor.css}" rel="stylesheet">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css"
+          th:href="@{/css/jquery.tag-editor.css}" rel="stylesheet">
     <script src="https://cdn.ckeditor.com/4.8.0/standard-all/ckeditor.js" th:src="@{/js/jquery.tag-editor.js}"></script>
+
 
 </head>
 <body>
-<!-- Start Page Content -->
-<!--/*@thymesVar id="recipeCommand" type="com.sencerseven.basittarifler.command.RecipeCommand"*/-->
-<div class="row justify-content-center">
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="form-validation">
-                    <form class="form-valide" th:action="@{/admin/post/add}" th:method="post" th:object="${postCommand}"
-                           enctype="multipart/form-data">
-                        <input type="hidden" th:field="*{id}">
-                        <p><h4>Tarif Genel</h4></p>
-                        <div class="form-group row">
+
+<section class="content-header">
+    <h1>
+        Yeni Kayıt
+        <small>İçetik kayıt ekleme sayfası</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">UI</a></li>
+        <li class="active">Buttons</li>
+    </ol>
+</section>
 
 
-                            <div class="col-md-12">
-                                <label class="col-lg-12 col-form-label" >Başlık <span
-                                        class="text-danger">*</span></label>
-                                <div class="col-lg-12">
-                                    <input type="text" class="form-control" id="val-username" name="val-username" placeholder="Başlık giriniz.." th:field="*{title}">
-                                    <span class="text-danger"></span>
-                                </div>
-                            </div>
+<section class="content">
 
-                            <div class="col-md-12">
-                                <label class="col-lg-12 col-form-label" >Tanımlama <span
-                                        class="text-danger">*</span></label>
-                                <div class="col-lg-12">
-                                    <input type="text" class="form-control" id="val-username" name="val-username" placeholder="Başlık giriniz.." th:field="*{description}">
-                                    <span class="text-danger"></span>
-                                </div>
-                            </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <i class="fa fa-edit"></i>
 
-                            <div class="col-md-4">
-                                <label class="col-lg-12 col-form-label" for="kategori">Kategori<span
-                                        class="text-danger">*</span></label>
-                                <div class="col-lg-12">
-                                    <select class="select2 w-100" id="kategori" th:field="*{category.id}" required>
-                                        <option value="">Please select</option>
-                                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
-                                    </select>
-                                    <span class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <label class="col-lg-12 col-form-label" for="kategori">Kategori<span
-                                        class="text-danger">*</span></label>
-                                <div class="col-lg-12">
-                                    <div class="checkbox">
-                                        <input type="checkbox" checked data-toggle="toggle">
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-md-12">
-                                <label class="col-lg-12 col-form-label" >Resim <span
-                                        class="text-danger">*</span></label>
-                                <div class="col-lg-12">
-                                    <input type="file" class="imgInput" th:field="*{multipartFile}" />
-                                    <span class="text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <label class="col-lg-12 col-form-label" >Post Yazısı <span
-                                        class="text-danger">*</span></label>
-                                <div class="col-lg-12">
-                                    <textarea id="editor1" class="textarea_editor form-control w-100" rows="15" placeholder="Enter text ..." style="height:200px" th:field="*{text}"></textarea>
-                                    <span class="text-danger"></span>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <label class="col-lg-12 col-form-label" >Etiket<span
-                                        class="text-danger">*</span></label>
-                                <div class="col-lg-12">
-                                    <textarea id="demo1" th:field="*{tags}"></textarea>
-                                    <span class="text-danger"></span>
-                                </div>
-                            </div>
-
-
-
-
-
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-lg-8 ml-auto">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                    <h3 class="box-title">Kayıt Ekle</h3>
+                </div>
+                <div class="box-body pad table-responsive">
+                    <p>Mevcut düzenlemeleri yaptıktan sonra kaydet butonunu kullanınız</p>
+                    <form class="form-valide" th:action="@{/admin/post/add}" th:method="post" th:object="${postCommand}" enctype="multipart/form-data">
+                    <input type="hidden" th:field="*{id}">
+                    <input type="hidden" th:field="*{id}">
+                    <div class="form-group">
+                        <label for="val-title">Başlık</label>
+                        <input type="text" class="form-control" id="val-title" placeholder="Başlık giriniz.."
+                               th:field="*{title}">
+                        <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="val-description">Tanım</label>
+                        <input type="text" class="form-control" id="val-description" name="val-username"
+                               placeholder="Başlık giriniz.." th:field="*{description}">
+                        <span class="text-danger" th:if="${#fields.hasErrors('description')}"
+                              th:errors="*{description}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="val-multipart">Resim</label>
+                        <input type="file" class="imgInput" id="val-multipart" th:field="*{multipartFile}"/>
+                        <span class="text-danger" th:if="${#fields.hasErrors('multipartFile')}"
+                              th:errors="*{multipartFile}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="val-parent">Kategori</label>
+                        <select class="form-control select2" id="val-parent" th:field="*{category.id}">
+                            <option value="">Please select</option>
+                            <option th:each="category : ${categories}" th:value="${category.id}"
+                                    th:text="${category.name}"></option>
+                        </select>
+                    </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label for="val-parent">Aktif / Pasif</label>
+                                <input type="checkbox" data-toggle="toggle" th:field="*{active}" th:checked="*{active} == true">
                             </div>
                         </div>
+                    <div class="form-group">
+                        <label for="editor1">İçerik Yazısı</label>
+                        <textarea id="editor1" class="textarea_editor form-control w-100" rows="15"
+                                  placeholder="Enter text ..." style="height:200px"
+                                  th:field="*{text}"></textarea>
+                        <span class="text-danger" th:if="${#fields.hasErrors('text')}"
+                              th:errors="*{text}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="val-tags">Etiket</label>
+                        <textarea id="val-tags" th:field="*{tags}"></textarea>
+                        <span class="text-danger" th:if="${#fields.hasErrors('tags')}"
+                              th:errors="*{tags}"></span>
+                    </div>
+
+
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Kaydet</button>
+                    </div>
+
                     </form>
                 </div>
-
+                <!-- /.box -->
             </div>
         </div>
+        <!-- /.col -->
     </div>
-</div>
-<!-- End PAge Content -->
+</section>
+<script src="../../bower_components/select2/dist/js/select2.full.min.js"
+        th:src="@{/bower_components/select2/dist/js/select2.full.min.js}"></script>
 
 <script th:inline="javascript">
+    $('.select2').select2();
 
-    var tags = [[${postCommand.tags}]];
 
-    if(tags != null )
+    var tags = [[${postCommand.tags}]]
+
+    if (tags != null)
         tags = tags.split(",");
     else
         tags = ' ';
 
-    $('#demo1').tagEditor({
+    $('#val-tags').tagEditor({
         initialTags: tags,
         delimiter: ', ',
-        placeholder: 'Enter tags ...' });
+        placeholder: 'Enter tags ...'
+    });
 
-    CKEDITOR.replace( 'editor1', {
+    CKEDITOR.replace('editor1', {
         // Define the toolbar: http://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_toolbar
         // The standard preset from CDN which we used as a base provides more features than we need.
         // Also by default it comes with a 2-line toolbar. Here we put all buttons in a single row.
         toolbar: [
-            { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
-            { name: 'styles', items: [ 'Styles', 'Format' ] },
-            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Strike', '-', 'RemoveFormat' ] },
-            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
-            { name: 'links', items: [ 'Link', 'Unlink' ] },
-            { name: 'insert', items: [ 'Image', 'EmbedSemantic', 'Table' ] },
-            { name: 'tools', items: [ 'Maximize' ] },
-            { name: 'editing', items: [ 'Scayt' ] }
+            {name: 'clipboard', items: ['Undo', 'Redo']},
+            {name: 'styles', items: ['Styles', 'Format']},
+            {name: 'basicstyles', items: ['Bold', 'Italic', 'Strike', '-', 'RemoveFormat']},
+            {name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote']},
+            {name: 'links', items: ['Link', 'Unlink']},
+            {name: 'insert', items: ['Image', 'EmbedSemantic', 'Table']},
+            {name: 'tools', items: ['Maximize']},
+            {name: 'editing', items: ['Scayt']}
         ],
         // Since we define all configuration options here, let's instruct CKEditor to not load config.js which it does by default.
         // One HTTP request less will result in a faster startup time.
@@ -177,7 +170,7 @@
         height: 600,
         // An array of stylesheets to style the WYSIWYG area.
         // Note: it is recommended to keep your own styles in a separate file in order to make future updates painless.
-        contentsCss: [ 'https://cdn.ckeditor.com/4.8.0/standard-all/contents.css', 'mystyles.css' ],
+        contentsCss: ['https://cdn.ckeditor.com/4.8.0/standard-all/contents.css', 'mystyles.css'],
         // This is optional, but will let us define multiple different styles for multiple editors using the same CSS file.
         bodyClass: 'article-editor',
         // Reduce the list of block elements listed in the Format dropdown to the most commonly used.
@@ -192,9 +185,9 @@
         // For more information see http://docs.ckeditor.com/ckeditor4/docs/#!/guide/dev_styles
         stylesSet: [
             /* Inline Styles */
-            { name: 'Marker',			element: 'span', attributes: { 'class': 'marker' } },
-            { name: 'Cited Work',		element: 'cite' },
-            { name: 'Inline Quotation',	element: 'q' },
+            {name: 'Marker', element: 'span', attributes: {'class': 'marker'}},
+            {name: 'Cited Work', element: 'cite'},
+            {name: 'Inline Quotation', element: 'q'},
             /* Object Styles */
             {
                 name: 'Special Container',
@@ -218,21 +211,25 @@
                     'border-collapse': 'collapse'
                 }
             },
-            { name: 'Borderless Table',		element: 'table',	styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
-            { name: 'Square Bulleted List',	element: 'ul',		styles: { 'list-style-type': 'square' } },
+            {
+                name: 'Borderless Table',
+                element: 'table',
+                styles: {'border-style': 'hidden', 'background-color': '#E6E6FA'}
+            },
+            {name: 'Square Bulleted List', element: 'ul', styles: {'list-style-type': 'square'}},
             /* Widget Styles */
             // We use this one to style the brownie picture.
-            { name: 'Illustration', type: 'widget', widget: 'image', attributes: { 'class': 'image-illustration' } },
+            {name: 'Illustration', type: 'widget', widget: 'image', attributes: {'class': 'image-illustration'}},
             // Media embed
-            { name: '240p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-240p' } },
-            { name: '360p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-360p' } },
-            { name: '480p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-480p' } },
-            { name: '720p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-720p' } },
-            { name: '1080p', type: 'widget', widget: 'embedSemantic', attributes: { 'class': 'embed-1080p' } }
+            {name: '240p', type: 'widget', widget: 'embedSemantic', attributes: {'class': 'embed-240p'}},
+            {name: '360p', type: 'widget', widget: 'embedSemantic', attributes: {'class': 'embed-360p'}},
+            {name: '480p', type: 'widget', widget: 'embedSemantic', attributes: {'class': 'embed-480p'}},
+            {name: '720p', type: 'widget', widget: 'embedSemantic', attributes: {'class': 'embed-720p'}},
+            {name: '1080p', type: 'widget', widget: 'embedSemantic', attributes: {'class': 'embed-1080p'}}
         ]
-    } );
+    });
+
+
 </script>
-
-
 </body>
 </html>

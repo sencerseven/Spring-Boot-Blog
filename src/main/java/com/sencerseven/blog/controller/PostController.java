@@ -2,14 +2,14 @@ package com.sencerseven.blog.controller;
 
 import com.sencerseven.blog.command.CommentCommand;
 import com.sencerseven.blog.command.PostCommand;
-import com.sencerseven.blog.command.TagCommand;
 import com.sencerseven.blog.converter.PostToPostCommandConverter;
 import com.sencerseven.blog.domain.Category;
 import com.sencerseven.blog.domain.Comment;
-import com.sencerseven.blog.domain.Parameter;
 import com.sencerseven.blog.domain.Post;
 import com.sencerseven.blog.model.JsonResponder;
-import com.sencerseven.blog.service.*;
+import com.sencerseven.blog.service.CategoryService;
+import com.sencerseven.blog.service.CommentService;
+import com.sencerseven.blog.service.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
@@ -28,17 +28,14 @@ public class PostController {
     PostService postService;
     CategoryService categoryService;
     CommentService commentService;
-    ParameterService parameterService;
     PostToPostCommandConverter postToPostCommandConverter;
-    TagService tagService;
 
-    public PostController(PostService postService, CategoryService categoryService, CommentService commentService, ParameterService parameterService, PostToPostCommandConverter postToPostCommandConverter, TagService tagService) {
+
+    public PostController(PostService postService, CategoryService categoryService, CommentService commentService, PostToPostCommandConverter postToPostCommandConverter) {
         this.postService = postService;
         this.categoryService = categoryService;
         this.commentService = commentService;
-        this.parameterService = parameterService;
         this.postToPostCommandConverter = postToPostCommandConverter;
-        this.tagService = tagService;
     }
 
     @GetMapping(value = "{url}")
@@ -46,22 +43,14 @@ public class PostController {
 
         Post post = postService.getPostByUrl(url);
         PostCommand postCommand = postToPostCommandConverter.convert(post);
-        List<PostCommand> populerList = postService.getPopulerPost(0, 3, "view", Sort.Direction.DESC);
-        List<Category> categoryList = categoryService.getCategoriesByActive(true);
-        List<Comment> commentList = commentService.findCommentsByPostAndActive(post, 1);
-        List<Parameter> parameterList = parameterService.findParameterByKey("ABOUT");
+        List<Comment> commentList = commentService.findCommentsByPostAndActive(post, true);
         List<PostCommand> findPostList = postService.findPostRand(0, 3, "id", Sort.Direction.DESC, post);
-        List<TagCommand> tagCommands = tagService.findAll();
         postService.updateBy(post);
 
         model.addAttribute("post", postCommand);
-        model.addAttribute("populerPost", populerList);
-        model.addAttribute("categories", categoryList);
         model.addAttribute("commentList", commentList);
-        model.addAttribute("parameterList", parameterList);
         model.addAttribute("commentCommand", new CommentCommand());
         model.addAttribute("suggessPostList", findPostList);
-        model.addAttribute("tagCommands", tagCommands);
 
 
         return "index";
@@ -83,12 +72,7 @@ public class PostController {
         }
 
 
-        List<Category> categoryList = categoryService.getCategoriesByActive(true);
-        List<PostCommand> populerList = postService.getPopulerPost(0, 1, "view", Sort.Direction.DESC);
-
         model.addAttribute("posts", postPage);
-        model.addAttribute("categories", categoryList);
-        model.addAttribute("populerPost", populerList);
 
 
         return "index";

@@ -53,6 +53,7 @@ public class PostCommandToPostConverter implements Converter<PostCommand,Post> {
         post.setTitle(postCommand.getTitle());
         post.setDescription(postCommand.getDescription());
         post.setText(postCommand.getText());
+        post.setActive(postCommand.isActive());
 
         if(postCommand.getTitle() != null)
             post.setUrl(blogHelpers.toSlug(postCommand.getTitle()));

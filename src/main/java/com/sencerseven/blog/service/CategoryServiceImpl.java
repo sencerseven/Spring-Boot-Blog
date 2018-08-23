@@ -44,6 +44,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Long countByActive(boolean status) {
+        return categoryRepository.countByActive(status);
+    }
+
+    @Override
     public Category getCategoriesByUrl(String url) {
         Optional<Category> categoryOptional = categoryRepository.findCategoriesByUrl(url);
 

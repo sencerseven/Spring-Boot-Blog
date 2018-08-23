@@ -10,6 +10,7 @@ import com.sencerseven.blog.domain.Post;
 import com.sencerseven.blog.exception.NotFoundPostInCategoryException;
 import com.sencerseven.blog.exception.NotFoundSearchException;
 import com.sencerseven.blog.repository.PostRepository;
+import com.sencerseven.blog.service.specification.PostCommandSpecification;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -30,11 +31,13 @@ public class PostServiceImpl implements PostService {
 
     PostCommandToPostConverter postCommandToPostConverter;
     PostToPostCommandConverter postToPostCommandConverter;
+    PostCommandSpecification postCommandSpecification;
 
-    public PostServiceImpl(PostRepository postRepository, PostCommandToPostConverter postCommandToPostConverter, PostToPostCommandConverter postToPostCommandConverter) {
+    public PostServiceImpl(PostRepository postRepository, PostCommandToPostConverter postCommandToPostConverter, PostToPostCommandConverter postToPostCommandConverter, PostCommandSpecification postCommandSpecification) {
         this.postRepository = postRepository;
         this.postCommandToPostConverter = postCommandToPostConverter;
         this.postToPostCommandConverter = postToPostCommandConverter;
+        this.postCommandSpecification = postCommandSpecification;
     }
 
     @Override
@@ -65,6 +68,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public Page<PostCommand> findPostSpecification(int page, int size, String column, Sort.Direction direction) {
+        Page<Post> postPage = postRepository.findAll(postCommandSpecification.getFilter(new PostCommand()),PageRequest.of(page,size,direction,column));
+
+        List<PostCommand> postCommandList = postPage.getContent().stream().map(post -> postToPostCommandConverter.convert(post)).collect(Collectors.toList());
+
+        return new PageImpl<>(postCommandList,PageRequest.of(page,size),postCommandList.size());
+    }
+
+    @Override
     public Post getPostByUrl(String url) {
         Optional<Post> postOptional = postRepository.findPostByUrl(url);
 
@@ -92,7 +104,9 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostCommand> getPopulerPost(int page, int size, String column, Sort.Direction direction) {
 
-        return findAll(PageRequest.of(page,size,direction,column)).stream().map(post -> postToPostCommandConverter.convert(post)).collect(Collectors.toList());
+        Page<Post> postCommands = postRepository.findAll(postCommandSpecification.getFilter(new PostCommand()),PageRequest.of(page,size,direction,column));
+
+        return postCommands.getContent().stream().map(postToPostCommandConverter::convert).collect(Collectors.toList());
     }
 
     @Override
@@ -123,7 +137,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<PostCommand> findPostByTagsContaining(int page, int size, String column, Sort.Direction direction, String containing) {
-        Page<Post> posts = postRepository.findPostByTagsContaining(PageRequest.of(page,size,direction,column),containing);
+        Page<Post> posts = postRepository.findPostsByTagsContains(PageRequest.of(page,size,direction,column),containing);
 
         if(posts.getContent().size() == 0)
             throw new NotFoundSearchException(containing);
@@ -166,6 +180,11 @@ public class PostServiceImpl implements PostService {
         int random = new Random().nextInt(id);
         return postRepository.findPostsByCategoryAndIdNot(PageRequest.of(random,size,direction,column),tempPost.getCategory(),tempPost.getId()).getContent().stream().map(post -> postToPostCommandConverter.convert(post)).collect(Collectors.toList());
 
+    }
+
+    @Override
+    public Long countByActive(boolean status) {
+        return postRepository.countByActive(status);
     }
 
 

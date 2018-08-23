@@ -18,7 +18,7 @@
             <ul class="post-meta">
                 <li><i class="mdi mdi-calendar"></i><span th:text="${#dates.format(post.createdAt, 'dd.MMM.yyyy')}">July 03, 2017</span></li>
                 <li><i class="mdi mdi-tag-text-outline"></i> <a href="standard-post.html#" th:text="${post.category.name}">Branding</a></li>
-                <li><i class="mdi mdi-comment-multiple-outline"></i> <a href="standard-post.html#"><span th:text="${#lists.size(post.comment)}">3</span> Yorum</a></li>
+                <li><i class="mdi mdi-comment-multiple-outline"></i> <a href="standard-post.html#"><span th:text="${commentList.size()}">3</span> Yorum</a></li>
             </ul>
         </div>
 
@@ -85,9 +85,9 @@
 
                 <li class="media" th:each="comment,key : ${commentList}">
                     <img class="d-flex mr-3 rounded-circle" src="images/user/user-5.png"
-                         alt="Generic placeholder image" style="height:75px; width: 75px;" th:if="${comment.commentUser.imageUrl == null}" th:src="@{/images/profile-2.png}" )>
+                         alt="Generic placeholder image" style="height:75px; width: 75px;" th:if="${comment.usersDetail.profileImg == null}" th:src="@{/images/profile-2.png}" )>
                     <div class="media-body">
-                        <h4 class="media-heading"><a href="" th:text="${comment.commentUser.name}">Michelle Durant</a></h4>
+                        <h4 class="media-heading"><a href="" th:text="${comment.usersDetail.firstName + ' ' + comment.usersDetail.lastName}">Michelle Durant</a></h4>
                         <p class="text-muted post-date">Jun 23, 2017, 11:45 am</p>
                         <p th:text="${comment.text}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam viverra euismod odio, gravida
                             pellentesque urna varius vitae. Sed dui lorem, adipiscing in adipiscing et, interdum nec

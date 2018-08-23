@@ -26,6 +26,8 @@ public class PostCommand {
 
     private String text;
 
+    private boolean active = true;
+
     private CategoryCommand category;
 
     private UsersCommand users;
@@ -38,7 +40,7 @@ public class PostCommand {
 
     private MultipartFile multipartFile;
 
-    private List<CommentCommand> comment = new ArrayList<>();
+    private int commentCount;
 
     private String tags;
 

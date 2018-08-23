@@ -4,4 +4,5 @@ INSERT INTO ROLE (role) VALUES ('ADMIN');
 
 INSERT INTO USER_ROLE(user_id,role_id) VALUES (1,1);
 
-INSERT INTO PARAMETER(key,value) VALUES ('ABOUT','Bahçeşehir Üniversitesi Yazılım Mühendisliği mezunuyum java aşoğıyım.');
+INSERT INTO PARAMETER(tip,key,value) VALUES ('SETTINGS', 'ABOUT','Bahçeşehir Üniversitesi Yazılım Mühendisliği mezunuyum java aşoğıyım.');
+INSERT INTO PARAMETER(tip,key,value) VALUES ('SETTINGS', 'TITLE','Sencer Seven Blog');

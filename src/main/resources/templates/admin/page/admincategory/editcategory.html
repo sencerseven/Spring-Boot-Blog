@@ -5,7 +5,8 @@
     <title>Title</title>
 
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="../../bower_components/select2/dist/css/select2.min.css"
+            th:href="@{/bower_components/select2/dist/css/select2.min.css}">
 
     <script src="js/lib/jquery/jquery.min.js" th:src="@{/js/lib/jquery/jquery.min.js}"></script>
     <!-- Form validation -->
@@ -16,62 +17,76 @@
 
 </head>
 <body>
-<!-- Start Page Content -->
-<div class="row justify-content-center">
-    <div class="col-lg-6">
-        <div class="card">
-            <div class="card-body">
-                <div class="form-validation">
+
+<section class="content-header">
+    <h1>
+        Düzenleme
+        <small>Kategori düzenleme sayfası</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">UI</a></li>
+        <li class="active">Buttons</li>
+    </ol>
+</section>
+
+
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <i class="fa fa-edit"></i>
+
+                    <h3 class="box-title">Düzenleme</h3>
+                </div>
+                <div class="box-body pad table-responsive">
+                    <p>Mevcut düzenlemeleri yaptıktan sonra kaydet butonunu kullanınız</p>
                     <form class="form-valide" action="#" th:action="@{/admin/category/add}" method="post" th:object="${categoryCommand}">
-                        <input th:hidden="true" th:field="*{id}" id="categoryID">
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label" for="val-username">Kategori Adı <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <input type="text" class="form-control" id="val-username" name="val-username" placeholder="Kategori ismini giriniz.." th:field="*{name}">
-                                <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                        <input type="hidden" th:field="*{id}">
+                        <div class="form-group">
+                            <label for="val-category">Kategori</label>
+                            <input type="text" class="form-control" id="val-category" placeholder="Kategori ismini giriniz.." th:field="*{name}">
+                            <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="val-description">Tanım</label>
+                            <input type="text" class="form-control" id="val-description"  placeholder="Kategori tanımını giriniz.." th:field="*{description}">
+                            <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="val-parent">Üst Kategori</label>
+                            <select class="form-control select2" id="val-parent"  th:field="*{parentCategory.id}">
+                                <option value="">Please select</option>
+                                <option th:each="category : ${categories}" th:if="(*{id} != ${category.id})" th:value="${category.id}" th:text="${category.name}" th:selected="(*{parentCategory.id} == ${category.id})"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" data-toggle="toggle" th:field="*{active}" th:checked="*{active} == true">
+                                    Menude Gözüksünmü ?
+                                </label>
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label" for="val-suggestions">Kategori Tanımı <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <textarea class="form-control" id="val-suggestions" name="val-suggestions" rows="5" placeholder="Kategori tanımlamasını giriniz.." th:field="*{description}"></textarea>
-                                <span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
-                            </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Kaydet</button>
                         </div>
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label" for="val-skill">Üst Kategori <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <select class="form-control" id="val-skill" name="val-skill" th:field="*{parentCategory.id}">
-                                    <option value="">Please select</option>
-                                    <option th:each="category : ${categories}" th:if="(*{id} != ${category.id})" th:value="${category.id}" th:text="${category.name}" th:selected="(*{parentCategory.id} == ${category.id})"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-lg-4 col-form-label" for="val-skill">Durum <span class="text-danger">*</span></label>
-                            <div class="col-lg-6">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" data-toggle="toggle" th:field="*{active}" th:checked="*{active} == true">
-                                        Menude Gözüksünmü ?
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <div class="col-lg-8 ml-auto">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
+
                     </form>
                 </div>
-
+                <!-- /.box -->
             </div>
         </div>
+        <!-- /.col -->
     </div>
-</div>
-<!-- End PAge Content -->
-
-
+</section>
+<script src="../../bower_components/select2/dist/js/select2.full.min.js"
+        th:src="@{/bower_components/select2/dist/js/select2.full.min.js}"></script>
+    <script>
+        $('.select2').select2();
+    </script>
 </body>
 </html>

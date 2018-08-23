@@ -7,5 +7,7 @@ import java.util.Set;
 
 public interface ParameterRepository extends JpaRepository<Parameter,Long> {
 
-    Set<Parameter> findParameterByKey(String keyValue);
+    Set<Parameter> findParameterByTipAndKey(String tip,String key);
+
+    Set<Parameter> findParameterByTip(String tip);
 }

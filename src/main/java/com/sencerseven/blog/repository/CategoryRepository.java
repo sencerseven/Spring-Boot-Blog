@@ -12,6 +12,8 @@ public interface CategoryRepository extends JpaRepository<Category,Long> {
 
     Set<Category> findCategoriesByActive(boolean status);
 
+    Long countByActive(boolean status);
+
     Optional<Category> findCategoriesByUrl(String url);
 
 
