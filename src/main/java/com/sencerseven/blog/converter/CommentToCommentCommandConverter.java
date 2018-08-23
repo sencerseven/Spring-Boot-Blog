@@ -41,6 +41,9 @@ public class CommentToCommentCommandConverter implements Converter<Comment,Comme
         if(comment.getUsersDetail() != null)
             commentCommand.setUsersDetailCommand(usersDetailToUsersDetailCommandConverter.convert(comment.getUsersDetail()));
 
+        if(comment.getPost() != null)
+            commentCommand.setPostCommand(postToPostCommandConverter.convert(comment.getPost()));
+
         return commentCommand;
     }
 }

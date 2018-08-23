@@ -56,7 +56,9 @@ public class PostToPostCommandConverter implements Converter<Post, PostCommand> 
          postCommand.setTags(post.getTags().stream().map(Tag::getTagName).collect(Collectors.joining(",")));
 
         if(post.getImageUrl() != null)
-        postCommand.setImageUrl(s3Services.getSignUrl(post.getImageUrl(),60));
+            postCommand.setImageUrl(s3Services.getSignUrl(post.getImageUrl(),60));
+        else
+            postCommand.setImageUrl(s3Services.getSignUrl("logo/noimage-7.png",60));
 
 
         if (post.getUsers() != null)
@@ -65,8 +67,8 @@ public class PostToPostCommandConverter implements Converter<Post, PostCommand> 
         if (post.getCategory() != null)
             postCommand.setCategory(categoryToCategoryCommandConverter.convert(post.getCategory()));
 
-        if(post.getComment() != null && post.getComment().size() > 0)
-            post.getComment().forEach(comment -> postCommand.getComment().add(commentToCommentCommandConverter.convert(comment)));
+        if(post.getComment() != null)
+            postCommand.setCommentCount((int) post.getComment().stream().filter(comment -> comment.isActive() == true).count());
 
         return postCommand;
 

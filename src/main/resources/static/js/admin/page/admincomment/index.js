@@ -86,6 +86,7 @@ $(document).ready(function() {
             '                            <th>Soyad</th>\n' +
             '                            <th>Email</th>\n' +
             '                            <th>Yazı</th>\n' +
+            '                            <th>İçerik Başlık</th>\n' +
             '' + (rowTool == true ? '<th></th>' : '') + '\n'+
             '                        </tr>\n' +
             '                        </thead>\n' +
@@ -98,6 +99,7 @@ $(document).ready(function() {
                     '         <td>'+this.usersDetailCommand.lastName+'</td>\n' +
                     '         <td>'+this.usersDetailCommand.email+'</td>\n' +
                     '         <td>'+this.text+'</td>\n' +
+                    '         <td>'+this.postCommand.title+'</td>\n' +
                     '' + (rowTool == true ? '<td>'+createRowTool(this)+'</td>' : '') + '\n'+
                     '     </tr>\n' +
                     '\n';
@@ -111,6 +113,7 @@ $(document).ready(function() {
             '                            <th>Soyad</th>\n' +
             '                            <th>Email</th>\n' +
             '                            <th>Yazı</th>\n' +
+            '                            <th>İçerik Başlık</th>\n' +
             '' + (rowTool == true ? '<th></th>' : '') + '\n'+
             '                        </tr>\n' +
             '                        </tfoot>\n' +

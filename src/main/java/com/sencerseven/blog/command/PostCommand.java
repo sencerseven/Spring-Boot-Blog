@@ -40,7 +40,7 @@ public class PostCommand {
 
     private MultipartFile multipartFile;
 
-    private List<CommentCommand> comment = new ArrayList<>();
+    private int commentCount;
 
     private String tags;
 

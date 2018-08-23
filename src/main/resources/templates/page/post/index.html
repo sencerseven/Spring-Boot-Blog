@@ -18,7 +18,7 @@
             <ul class="post-meta">
                 <li><i class="mdi mdi-calendar"></i><span th:text="${#dates.format(post.createdAt, 'dd.MMM.yyyy')}">July 03, 2017</span></li>
                 <li><i class="mdi mdi-tag-text-outline"></i> <a href="standard-post.html#" th:text="${post.category.name}">Branding</a></li>
-                <li><i class="mdi mdi-comment-multiple-outline"></i> <a href="standard-post.html#"><span th:text="${#lists.size(post.comment)}">3</span> Yorum</a></li>
+                <li><i class="mdi mdi-comment-multiple-outline"></i> <a href="standard-post.html#"><span th:text="${commentList.size()}">3</span> Yorum</a></li>
             </ul>
         </div>
 
