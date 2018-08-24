@@ -7,6 +7,7 @@ import com.sencerseven.blog.converter.PostCommandToPostConverter;
 import com.sencerseven.blog.converter.PostToPostCommandConverter;
 import com.sencerseven.blog.domain.Category;
 import com.sencerseven.blog.domain.Post;
+import com.sencerseven.blog.exception.NotFoundCategoryException;
 import com.sencerseven.blog.exception.NotFoundPostInCategoryException;
 import com.sencerseven.blog.exception.NotFoundSearchException;
 import com.sencerseven.blog.repository.PostRepository;
@@ -77,8 +78,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post getPostByUrl(String url) {
-        Optional<Post> postOptional = postRepository.findPostByUrl(url);
+    public Post getPostByUrlAndActive(String url,boolean status) {
+        Optional<Post> postOptional = postRepository.findPostByUrlAndActive(url,status);
 
         if(!postOptional.isPresent())
             throw new RuntimeException();
@@ -185,6 +186,27 @@ public class PostServiceImpl implements PostService {
     @Override
     public Long countByActive(boolean status) {
         return postRepository.countByActive(status);
+    }
+
+    @Override
+    public Page<PostCommand> findSpecificationPost(int page, int size, String column, Sort.Direction direction, PostCommand postCommand) {
+        Page<Post> posts = postRepository.findAll(postCommandSpecification.getFilter(postCommand),PageRequest.of(page,size,direction,column));
+
+        if(posts.getContent().size() == 0){
+
+            if(postCommand.getTitle() != null){
+                throw new NotFoundSearchException(postCommand.getTitle());
+            }else{
+                throw new NotFoundCategoryException();
+            }
+        }
+
+
+
+
+        List<PostCommand> postCommandList = posts.getContent().stream().map(post -> postToPostCommandConverter.convert(post)).collect(Collectors.toList());
+
+        return new PageImpl<>(postCommandList,PageRequest.of(page,size),posts.getTotalElements());
     }
 
 

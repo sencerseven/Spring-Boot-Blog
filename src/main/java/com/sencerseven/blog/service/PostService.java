@@ -3,16 +3,13 @@ package com.sencerseven.blog.service;
 
 import com.sencerseven.blog.command.PostCommand;
 import com.sencerseven.blog.command.UsersCommand;
-import com.sencerseven.blog.controller.PostController;
 import com.sencerseven.blog.domain.Category;
 import com.sencerseven.blog.domain.Post;
-import javafx.geometry.Pos;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface PostService {
 
@@ -21,9 +18,10 @@ public interface PostService {
     List<Post> findAll(Pageable pageable);
 
     Page<PostCommand> findPostsBy(int page, int size, String column, Sort.Direction direction);
+
     Page<PostCommand> findPostSpecification(int page, int size, String column, Sort.Direction direction);
 
-    Post getPostByUrl(String url);
+    Post getPostByUrlAndActive(String url, boolean status);
 
     Post updateBy(Post post);
 
@@ -37,7 +35,9 @@ public interface PostService {
 
     PostCommand savePostsCommand(PostCommand postCommand, UsersCommand usersCommand);
 
-    List<PostCommand> findPostRand(int page, int size, String column, Sort.Direction direction,Post tempPost);
+    List<PostCommand> findPostRand(int page, int size, String column, Sort.Direction direction, Post tempPost);
 
     Long countByActive(boolean status);
+
+    Page<PostCommand> findSpecificationPost(int page, int size, String column, Sort.Direction direction, PostCommand postCommand);
 }

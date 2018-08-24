@@ -11,5 +11,11 @@ public abstract class BaseSpecification<T,U> {
     protected String contains(String searchField){
         return wildcard + searchField + wildcard;
     }
+    protected String containsLeft(String searchField){
+        return wildcard + searchField;
+    }
+    protected String containsRight(String searchField){
+        return searchField + wildcard;
+    }
 
 }

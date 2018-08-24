@@ -66,11 +66,11 @@ public class PostServiceImplTest {
 
         Optional<Post> postOptional = Optional.of(new Post());
 
-        when(postRepository.findPostByUrl(anyString())).thenReturn(postOptional);
+        when(postRepository.findPostByUrlAndActive(anyString(),true)).thenReturn(postOptional);
 
-        Post post = postService.getPostByUrl(anyString());
+        Post post = postService.getPostByUrlAndActive(anyString(),true);
 
         assertNotNull(post);
-        verify(postRepository, times(1)).findPostByUrl(anyString());
+        verify(postRepository, times(1)).findPostByUrlAndActive(anyString(),true);
     }
 }
