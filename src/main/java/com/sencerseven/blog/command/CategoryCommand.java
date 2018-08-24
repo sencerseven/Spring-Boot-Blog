@@ -23,5 +23,11 @@ public class CategoryCommand {
 
     private String url;
 
-
+    public CategoryCommand(String name, String description, CategoryCommand parentCategory, boolean active, String url) {
+        this.name = name;
+        this.description = description;
+        this.parentCategory = parentCategory;
+        this.active = active;
+        this.url = url;
+    }
 }

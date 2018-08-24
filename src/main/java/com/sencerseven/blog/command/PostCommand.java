@@ -44,4 +44,17 @@ public class PostCommand {
 
     private String tags;
 
+    public PostCommand(String title, String description, String text, boolean active, CategoryCommand category, UsersCommand users, String imageUrl, Date createdAt, String url, int commentCount, String tags) {
+        this.title = title;
+        this.description = description;
+        this.text = text;
+        this.active = active;
+        this.category = category;
+        this.users = users;
+        this.imageUrl = imageUrl;
+        this.createdAt = createdAt;
+        this.url = url;
+        this.commentCount = commentCount;
+        this.tags = tags;
+    }
 }

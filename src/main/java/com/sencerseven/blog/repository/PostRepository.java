@@ -18,7 +18,7 @@ public interface PostRepository extends JpaRepository<Post, Long>,JpaSpecificati
 
     Page<Post> findPostsBy(Pageable pageable);
 
-    Optional<Post> findPostByUrl(String url);
+    Optional<Post> findPostByUrlAndActive(String url,boolean status);
 
     Page<Post> findPostsByCategory(Pageable pageable, Category category);
 

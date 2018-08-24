@@ -7,7 +7,6 @@ import com.sencerseven.blog.domain.Comment;
 import com.sencerseven.blog.domain.Post;
 import com.sencerseven.blog.repository.CommentRepository;
 import com.sencerseven.blog.service.specification.CommentCommandSpecification;
-import com.sun.xml.internal.rngom.ast.builder.CommentList;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -90,22 +89,22 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Long countAllByReadAndType(boolean read, String type) {
-        return commentRepository.countAllByReadAndType(read,type);
+        return commentRepository.countAllByReadAndType(read, type);
     }
 
     @Override
-    public List<CommentCommand> findAll(CommentCommand commentCommand,String type) {
-        if(type != null)
+    public List<CommentCommand> findAll(CommentCommand commentCommand, String type) {
+        if (type != null)
             commentCommand.setType(type);
 
-       Page<Comment> comment = commentRepository.findAll(commentCommandSpecification.getFilter(commentCommand),PageRequest.of(0,10,Sort.Direction.DESC,"id"));
+        Page<Comment> comment = commentRepository.findAll(commentCommandSpecification.getFilter(commentCommand), PageRequest.of(0, 10, Sort.Direction.DESC, "id"));
 
-       return comment.getContent().stream().map(commentToCommentCommandConverter::convert).collect(Collectors.toList());
+        return comment.getContent().stream().map(commentToCommentCommandConverter::convert).collect(Collectors.toList());
     }
 
     @Override
     public Comment saveOrUpdate(Comment comment) {
-        if(comment == null )
+        if (comment == null)
             return null;
 
         Comment commentResponse = commentRepository.save(comment);
@@ -114,6 +113,6 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Long countByActiveAndType(boolean status, String type) {
-        return commentRepository.countByActiveAndType(status,type);
+        return commentRepository.countByActiveAndType(status, type);
     }
 }

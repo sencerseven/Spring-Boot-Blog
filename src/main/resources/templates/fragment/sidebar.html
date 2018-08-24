@@ -89,7 +89,7 @@
         <aside class="widget widget_tag_cloud" th:if="not ${#lists.isEmpty(tagCommands)}">
             <div class="widget-title">Etiketler</div>
             <div class="tagcloud">
-                <a href="index.html#" th:each="tag : ${tagCommands}" th:text="${tag.tagName}">logo</a>
+                <a href="index.html#" th:each="tag : ${tagCommands}" th:text="${tag.tagName}" th:href="@{'/post?tags=' + ${tag.tagName}}">logo</a>
             </div>
         </aside>
     </div>

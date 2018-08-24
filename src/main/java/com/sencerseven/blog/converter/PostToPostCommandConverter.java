@@ -34,7 +34,7 @@ public class PostToPostCommandConverter implements Converter<Post, PostCommand> 
     }
 
     @Autowired
-    public void setCommentToCommentCommandConverter(@Lazy CommentToCommentCommandConverter commentToCommentCommandConverter) {
+    public void setCommentToCommentCommandConverter(CommentToCommentCommandConverter commentToCommentCommandConverter) {
         this.commentToCommentCommandConverter = commentToCommentCommandConverter;
     }
 

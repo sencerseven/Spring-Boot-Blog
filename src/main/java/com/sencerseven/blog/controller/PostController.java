@@ -1,5 +1,6 @@
 package com.sencerseven.blog.controller;
 
+import com.sencerseven.blog.command.CategoryCommand;
 import com.sencerseven.blog.command.CommentCommand;
 import com.sencerseven.blog.command.PostCommand;
 import com.sencerseven.blog.converter.PostToPostCommandConverter;
@@ -41,7 +42,7 @@ public class PostController {
     @GetMapping(value = "{url}")
     public String indexAction(@PathVariable("url") String url, Model model) {
 
-        Post post = postService.getPostByUrl(url);
+        Post post = postService.getPostByUrlAndActive(url,true);
         PostCommand postCommand = postToPostCommandConverter.convert(post);
         List<Comment> commentList = commentService.findCommentsByPostAndActive(post, true);
         List<PostCommand> findPostList = postService.findPostRand(0, 3, "id", Sort.Direction.DESC, post);
@@ -62,14 +63,13 @@ public class PostController {
                                @RequestParam(name = "tags", required = false) String tmpTags, Model model) {
         Page<PostCommand> postPage;
 
-        if (tmpCategory != null && !tmpCategory.equals("")) {
-            Category category = categoryService.getCategoriesByUrl(tmpCategory);
-            postPage = postService.findPostsByCategory(0, 10, "id", Sort.Direction.DESC, category);
-        } else if (tmpSearch != null && !tmpSearch.equals("")) {
-            postPage = postService.findPostByTitleContaining(0, 10, "id", Sort.Direction.DESC, tmpSearch);
-        } else {
-            postPage = postService.findPostByTagsContaining(0, 10, "id", Sort.Direction.DESC, tmpTags);
-        }
+        PostCommand postCommand = new PostCommand();
+        postCommand.setTags(tmpTags);
+        postCommand.setTitle(tmpSearch);
+        postCommand.setCategory(new CategoryCommand(tmpCategory,null,null,true,null));
+
+        postPage = postService.findSpecificationPost(0,10,"id",Sort.Direction.DESC,postCommand);
+
 
 
         model.addAttribute("posts", postPage);
