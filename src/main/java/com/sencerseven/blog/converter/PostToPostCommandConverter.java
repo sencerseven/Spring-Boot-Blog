@@ -55,10 +55,12 @@ public class PostToPostCommandConverter implements Converter<Post, PostCommand> 
         if(post.getTags() != null && post.getTags().size() > 0)
          postCommand.setTags(post.getTags().stream().map(Tag::getTagName).collect(Collectors.joining(",")));
 
-        if(post.getImageUrl() != null)
+        if(post.getImageUrl() != null){
             postCommand.setImageUrl(s3Services.getSignUrl(post.getImageUrl(),60));
-        else
+
+        }else{
             postCommand.setImageUrl(s3Services.getSignUrl("logo/noimage-7.png",60));
+        }
 
 
         if (post.getUsers() != null)
