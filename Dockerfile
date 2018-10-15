@@ -1,4 +1,4 @@
 FROM openjdk:8
-ADD target/blog-0.0.1-SNAPSHOT.jar blog-0.0.1-SNAPSHOT.jar
+ADD target/spring-blog.jar spring-blog.jar
 EXPOSE 8085
-ENTRYPOINT ["java","-jar","blog-0.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java","-jar","spring-blog.jar"]
